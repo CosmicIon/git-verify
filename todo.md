@@ -226,9 +226,14 @@ Acceptance criteria:
 
 ## Phase 2: Backend API Core (Node.js + Express)
 
-### [ ] T2.1 Build Express app skeleton with layered architecture (P0)
+### [x] T2.1 Build Express app skeleton with layered architecture (P0)
 Owner: Team Lead  
 Dependencies: T1.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/app.js`, `backend/src/routes/v1/index.js`, `backend/src/controllers/`, `backend/src/services/`, `backend/src/repositories/`, `backend/src/utils/`, `backend/src/middlewares/`
+- Validation: `GET /api/v1/health` returned `200`
 
 Description:
 - Establish stable architecture for growth.
@@ -246,9 +251,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T2.2 Implement global error handling and response contracts (P0)
+### [x] T2.2 Implement global error handling and response contracts (P0)
 Owner: Team Lead  
 Dependencies: T2.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/utils/response.js`, `backend/src/utils/appError.js`, `backend/src/middlewares/errorHandler.js`, `backend/src/middlewares/notFound.js`, `backend/src/utils/asyncHandler.js`
+- Validation: structured 400/404/405 error payloads include `code`, `message`, `details`, `meta.traceId`
 
 Description:
 - Return predictable JSON for success/errors.
@@ -270,9 +280,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T2.3 Add input validation for all public endpoints (P0)
+### [x] T2.3 Add input validation for all public endpoints (P0)
 Owner: Team Lead  
 Dependencies: T2.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/validators/requestValidators.js`, `backend/src/validators/commonValidators.js`
+- Validation: `POST /api/v1/score` with invalid payload returned `400 VALIDATION_ERROR`
 
 Description:
 - Reject malformed input early.
@@ -291,9 +306,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T2.4 Implement API versioning and route organization (P1)
+### [x] T2.4 Implement API versioning and route organization (P1)
 Owner: Team Lead  
 Dependencies: T2.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/routes/v1/index.js`, `backend/src/routes/legacy.js`
+- Validation: `GET /api/v1/health` and `GET /api/health` both returned `200`
 
 Description:
 - Future-proof API evolution.

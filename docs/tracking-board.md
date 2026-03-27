@@ -8,10 +8,6 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - Keep card format: `Task ID | Title | Priority | Owner | Due Date`.
 
 ## Backlog
-- T2.1 | Build Express layered app skeleton | P0 | Team Lead | 2026-04-01
-- T2.2 | Implement global error handling contracts | P0 | Team Lead | 2026-04-02
-- T2.3 | Add endpoint input validation | P0 | Team Lead | 2026-04-02
-- T2.4 | Add API versioning and route organization | P1 | Team Lead | 2026-04-03
 - T3.1 | Implement robust file upload pipeline | P0 | Team Lead | 2026-04-04
 - T3.2 | Build PDF/DOCX parser adapters | P0 | Team Lead | 2026-04-05
 - T3.3 | Implement preprocessing pipeline | P0 | Team Lead | 2026-04-05
@@ -69,6 +65,10 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - T1.2 | Standardize environment config and secrets | P0 | Team Lead | Done: 2026-03-27
 - T1.3 | Initialize dependencies and scripts | P0 | Team Lead | Done: 2026-03-27
 - T1.4 | Add linter/formatter/quality tooling | P1 | Team Lead | Done: 2026-03-27
+- T2.1 | Build Express layered app skeleton | P0 | Team Lead | Done: 2026-03-27
+- T2.2 | Implement global error handling contracts | P0 | Team Lead | Done: 2026-03-27
+- T2.3 | Add endpoint input validation | P0 | Team Lead | Done: 2026-03-27
+- T2.4 | Add API versioning and route organization | P1 | Team Lead | Done: 2026-03-27
 
 ## Weekly Operating Routine
 - Monday:
