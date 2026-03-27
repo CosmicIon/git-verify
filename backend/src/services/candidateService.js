@@ -1,9 +1,10 @@
 const { listCandidates, saveCandidateDraft } = require("../repositories/candidateRepository");
 
-function createUploadDraft({ githubLink, jobDescription }) {
+function createUploadDraft({ githubLink, jobDescription, resumes }) {
   return saveCandidateDraft({
     githubLink,
     jobDescription,
+    resumes,
     atsScore: 0,
     githubScore: 0,
     finalScore: 0,

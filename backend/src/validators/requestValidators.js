@@ -7,7 +7,9 @@ const {
 } = require("./commonValidators");
 
 function validateUploadRequest(req, _res, next) {
-  const { githubLink, jobDescription, resumeMimeType } = req.body || {};
+  const { githubLink, jobDescription } = req.body || {};
+  const files = req.files || [];
+  const maxFilesPerUpload = Number(process.env.MAX_FILES_PER_UPLOAD || 20);
 
   try {
     assertOrThrow(isValidGithubIdentity(githubLink), {
@@ -24,17 +26,28 @@ function validateUploadRequest(req, _res, next) {
       details: { field: "jobDescription", minLength: 30 },
     });
 
-    if (resumeMimeType !== undefined) {
-      assertOrThrow(ALLOWED_RESUME_MIME_TYPES.includes(resumeMimeType), {
-        code: "VALIDATION_ERROR",
-        message: "resumeMimeType must be PDF or DOCX MIME type",
-        status: 400,
-        details: {
-          field: "resumeMimeType",
-          allowedValues: ALLOWED_RESUME_MIME_TYPES,
-        },
-      });
-    }
+    assertOrThrow(files.length > 0, {
+      code: "VALIDATION_ERROR",
+      message: "At least one resume file is required under field 'resumes'",
+      status: 400,
+      details: { field: "resumes" },
+    });
+
+    assertOrThrow(files.length <= maxFilesPerUpload, {
+      code: "VALIDATION_ERROR",
+      message: `Maximum ${maxFilesPerUpload} files allowed per upload`,
+      status: 400,
+      details: { field: "resumes", maxFilesPerUpload },
+    });
+
+    const unsupportedFiles = files.filter(
+      (file) => !ALLOWED_RESUME_MIME_TYPES.includes(file.mimetype)
+    );
+
+    req.uploadDiagnostics = {
+      totalFiles: files.length,
+      unsupportedFileNames: unsupportedFiles.map((file) => file.originalname),
+    };
 
     next();
   } catch (error) {

@@ -332,9 +332,14 @@ Acceptance criteria:
 
 ## Phase 3: Resume Upload and Parsing Pipeline
 
-### [ ] T3.1 Implement robust file upload pipeline (P0)
+### [x] T3.1 Implement robust file upload pipeline (P0)
 Owner: Team Lead  
 Dependencies: T2.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/middlewares/uploadMiddleware.js`, `backend/src/routes/v1/index.js`, `backend/src/validators/requestValidators.js`
+- Validation: multipart upload under `resumes` field with per-file status in response
 
 Description:
 - Support multi-file resume upload with safety checks.
@@ -353,9 +358,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T3.2 Build parser adapters for PDF and DOCX (P0)
+### [x] T3.2 Build parser adapters for PDF and DOCX (P0)
 Owner: Team Lead  
 Dependencies: T3.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/parsers/pdfParser.js`, `backend/src/services/parsers/docxParser.js`, `backend/src/services/resumeParserService.js`
+- Validation: parser pipeline returns `parsed`/`failed` status per file with parse error handling
 
 Description:
 - Extract text reliably across file formats.
@@ -373,9 +383,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T3.3 Implement text preprocessing pipeline (P0)
+### [x] T3.3 Implement text preprocessing pipeline (P0)
 Owner: Team Lead  
 Dependencies: T3.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/preprocessingService.js`, `backend/src/services/resumeParserService.js`
+- Validation: extracted text normalized into cleaned tokens and token statistics per parsed file
 
 Description:
 - Prepare resume and JD text for scoring.
@@ -395,9 +410,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T3.4 Add extraction quality diagnostics and flags (P1)
+### [x] T3.4 Add extraction quality diagnostics and flags (P1)
 Owner: Team Lead  
 Dependencies: T3.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/diagnosticsService.js`, `backend/src/services/resumeParserService.js`, `backend/src/controllers/uploadController.js`
+- Validation: response includes flags such as `EMPTY_RESUME_TEXT`, `LOW_TEXT_QUALITY`, and per-file failure codes
 
 Description:
 - Identify low-quality or empty extraction early.

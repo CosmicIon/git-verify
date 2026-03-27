@@ -10,6 +10,7 @@ const {
   validateScoreRequest,
   validateRankingsQuery,
 } = require("../../validators/requestValidators");
+const { uploadResumes } = require("../../middlewares/uploadMiddleware");
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router
 
 router
   .route("/upload")
-  .post(validateUploadRequest, asyncHandler(uploadCandidate))
+  .post(uploadResumes, validateUploadRequest, asyncHandler(uploadCandidate))
   .all(methodNotAllowed(["POST"]));
 
 router

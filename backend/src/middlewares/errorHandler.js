@@ -3,8 +3,32 @@ const { errorResponse } = require("../utils/response");
 
 function errorHandler(error, req, res, next) {
   void next;
-  const normalizedError =
-    error instanceof AppError
+  const multerCodeMap = {
+    LIMIT_FILE_SIZE: {
+      code: "FILE_TOO_LARGE",
+      message: "One or more files exceeded upload size limit",
+      status: 400,
+    },
+    LIMIT_FILE_COUNT: {
+      code: "TOO_MANY_FILES",
+      message: "Too many files uploaded in one request",
+      status: 400,
+    },
+  };
+
+  const mappedMulterError =
+    error && error.name === "MulterError" && multerCodeMap[error.code]
+      ? new AppError({
+          ...multerCodeMap[error.code],
+          details: {
+            multerCode: error.code,
+          },
+        })
+      : null;
+
+  const normalizedError = mappedMulterError
+    ? mappedMulterError
+    : error instanceof AppError
       ? error
       : new AppError({
           code: "INTERNAL_SERVER_ERROR",

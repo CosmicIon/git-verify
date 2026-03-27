@@ -8,10 +8,6 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - Keep card format: `Task ID | Title | Priority | Owner | Due Date`.
 
 ## Backlog
-- T3.1 | Implement robust file upload pipeline | P0 | Team Lead | 2026-04-04
-- T3.2 | Build PDF/DOCX parser adapters | P0 | Team Lead | 2026-04-05
-- T3.3 | Implement preprocessing pipeline | P0 | Team Lead | 2026-04-05
-- T3.4 | Add extraction quality diagnostics | P1 | Team Lead | 2026-04-06
 - T4.1 | Implement TF-IDF scoring module | P0 | Team Lead | 2026-04-06
 - T4.2 | Implement embedding-based semantic scorer | P1 | Team Lead | 2026-04-07
 - T4.3 | Calibrate weighted ATS formula | P0 | Team Lead | 2026-04-08
@@ -69,6 +65,10 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - T2.2 | Implement global error handling contracts | P0 | Team Lead | Done: 2026-03-27
 - T2.3 | Add endpoint input validation | P0 | Team Lead | Done: 2026-03-27
 - T2.4 | Add API versioning and route organization | P1 | Team Lead | Done: 2026-03-27
+- T3.1 | Implement robust file upload pipeline | P0 | Team Lead | Done: 2026-03-27
+- T3.2 | Build PDF/DOCX parser adapters | P0 | Team Lead | Done: 2026-03-27
+- T3.3 | Implement preprocessing pipeline | P0 | Team Lead | Done: 2026-03-27
+- T3.4 | Add extraction quality diagnostics | P1 | Team Lead | Done: 2026-03-27
 
 ## Weekly Operating Routine
 - Monday:
