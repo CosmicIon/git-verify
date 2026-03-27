@@ -1,4 +1,5 @@
 const inMemoryCandidates = [];
+const { rankCandidates } = require("../services/rankingService");
 
 function saveCandidateDraft(payload) {
   const created = {
@@ -29,24 +30,12 @@ function updateCandidateScores(id, payload) {
 }
 
 function listCandidates({ page, limit, sortBy, direction }) {
-  const sorted = [...inMemoryCandidates].sort((a, b) => {
-    const aValue = a[sortBy] ?? 0;
-    const bValue = b[sortBy] ?? 0;
-
-    if (direction === "asc") {
-      return aValue > bValue ? 1 : -1;
-    }
-
-    return aValue < bValue ? 1 : -1;
+  return rankCandidates(inMemoryCandidates, {
+    page,
+    limit,
+    sortBy,
+    direction,
   });
-
-  const start = (page - 1) * limit;
-  const end = start + limit;
-
-  return {
-    total: sorted.length,
-    items: sorted.slice(start, end),
-  };
 }
 
 module.exports = {

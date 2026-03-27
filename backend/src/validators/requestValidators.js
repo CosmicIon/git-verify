@@ -108,7 +108,13 @@ function validateRankingsQuery(req, _res, next) {
   try {
     const page = toPositiveInteger(req.query.page, 1);
     const limit = toPositiveInteger(req.query.limit, 20);
-    const allowedSortFields = ["finalScore", "atsScore", "githubScore", "createdAt"];
+    const allowedSortFields = [
+      "finalScore",
+      "atsScore",
+      "githubScore",
+      "confidenceScore",
+      "createdAt",
+    ];
     const sortBy = req.query.sortBy || "finalScore";
 
     assertOrThrow(page !== null, {

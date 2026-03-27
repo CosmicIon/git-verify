@@ -8,9 +8,6 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - Keep card format: `Task ID | Title | Priority | Owner | Due Date`.
 
 ## Backlog
-- T6.1 | Implement final candidate score formula | P0 | Team Lead | 2026-04-12
-- T6.2 | Implement ranking and tie-break logic | P0 | Team Lead | 2026-04-12
-- T6.3 | Add confidence and audit metadata | P1 | Team Lead | 2026-04-13
 - T7.1 | Implement Candidate/Job schemas | P0 | Team Lead | 2026-04-13
 - T7.2 | Add performance indexes | P1 | Team Lead | 2026-04-14
 - T7.3 | Add repository/data-access layer | P1 | Team Lead | 2026-04-14
@@ -69,6 +66,9 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - T5.4 | Implement GitHub component scores | P0 | Team Lead | Done: 2026-03-27
 - T5.5 | Implement weighted GitHub final score | P0 | Team Lead | Done: 2026-03-27
 - T5.6 | Build skill-claim inconsistency detector | P0 | Team Lead | Done: 2026-03-27
+- T6.1 | Implement final candidate score formula | P0 | Team Lead | Done: 2026-03-27
+- T6.2 | Implement ranking and tie-break logic | P0 | Team Lead | Done: 2026-03-27
+- T6.3 | Add confidence and audit metadata | P1 | Team Lead | Done: 2026-03-27
 
 ## Weekly Operating Routine
 - Monday:

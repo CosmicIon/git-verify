@@ -8,6 +8,7 @@ const { AppError } = require("../utils/appError");
 const { computeAtsFromResumes, computeSingleResumeAts } = require("./atsScoringService");
 const { normalizeGithubIdentity } = require("./githubIdentityService");
 const { analyzeGithubProfile } = require("./githubAnalysisService");
+const { computeFinalScore } = require("./finalScoringService");
 
 function createUploadDraft({ githubLink, jobDescription, resumes }) {
   const githubUsername = normalizeGithubIdentity(githubLink);
@@ -127,14 +128,34 @@ async function calculateScores({ candidateId, githubLink, jobDescription, resume
   }
 
   const githubScore = githubAnalysis.score.githubScore;
-  const finalScore = Number(((atsResult.atsScore + githubScore) / 2).toFixed(6));
+  const componentAvailability = {
+    ats: Number.isFinite(atsResult.atsScore),
+    github: !githubAnalysis.score.reasonCodes.includes("GITHUB_DATA_UNAVAILABLE"),
+  };
+
+  const finalResult = computeFinalScore({
+    atsScore: atsResult.atsScore,
+    githubScore,
+    componentAvailability,
+    verificationFlags: githubAnalysis.flags,
+    atsSourceFile: atsResult.sourceFile,
+  });
+
+  const scoreAudit = {
+    scoringVersion: "v1-phase6",
+    scoringTimestamp: new Date().toISOString(),
+    finalPolicy: finalResult.finalPolicy,
+    confidenceScore: finalResult.confidenceScore,
+  };
 
   updateCandidateScores(candidate.id, {
     githubUsername: normalizedGithubUsername,
     atsScore: atsResult.atsScore,
     githubScore,
-    finalScore,
+    finalScore: finalResult.finalScore,
+    confidenceScore: finalResult.confidenceScore,
     flags: githubAnalysis.flags,
+    scoreAudit,
     atsDetails: {
       components: atsResult.components,
       explanation: atsResult.explanation,
@@ -162,7 +183,9 @@ async function calculateScores({ candidateId, githubLink, jobDescription, resume
     githubComponents: githubAnalysis.score.components,
     githubReasonCodes: githubAnalysis.score.reasonCodes,
     verificationFlags: githubAnalysis.flags,
-    finalScore,
+    finalScore: finalResult.finalScore,
+    confidenceScore: finalResult.confidenceScore,
+    scoreAudit,
   };
 }
 

@@ -698,9 +698,14 @@ Acceptance criteria:
 
 ## Phase 6: Final Scoring and Ranking
 
-### [ ] T6.1 Implement final candidate score calculation (P0)
+### [x] T6.1 Implement final candidate score calculation (P0)
 Owner: Team Lead  
 Dependencies: T4.3, T5.5
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/finalScoringService.js`, `backend/src/services/candidateService.js`
+- Validation: final score uses `FINAL_LAMBDA` with guardrails and fallback policy based on component availability
 
 Description:
 - Combine ATS and GitHub scores:
@@ -719,9 +724,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T6.2 Implement ranking engine and tie-break logic (P0)
+### [x] T6.2 Implement ranking engine and tie-break logic (P0)
 Owner: Team Lead  
 Dependencies: T6.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/rankingService.js`, `backend/src/repositories/candidateRepository.js`
+- Validation: deterministic ranking with tie-break order finalScore -> githubScore -> atsScore -> recency and assigned `rank`
 
 Description:
 - Produce stable candidate ordering.
@@ -739,9 +749,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T6.3 Add confidence score and ranking audit metadata (P1)
+### [x] T6.3 Add confidence score and ranking audit metadata (P1)
 Owner: Team Lead  
 Dependencies: T6.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/finalScoringService.js`, `backend/src/services/candidateService.js`, `backend/src/validators/requestValidators.js`
+- Validation: scoring output includes `confidenceScore` and `scoreAudit` metadata with scoring version/timestamp/policy
 
 Description:
 - Improve trust in ranking decisions.
