@@ -1160,9 +1160,14 @@ Acceptance criteria:
 
 ## Phase 11: Testing and Validation
 
-### [ ] T11.1 Unit tests for parsing, scoring, and ranking modules (P0)
+### [x] T11.1 Unit tests for parsing, scoring, and ranking modules (P0)
 Owner: Team Lead  
 Dependencies: T3.3, T4.3, T5.5, T6.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/test/unit/resumeParserService.test.js`, `backend/test/unit/atsScoringService.test.js`, `backend/test/unit/githubScoringService.test.js`, `backend/test/unit/rankingService.test.js`
+- Validation: parser/scoring/ranking unit tests pass with deterministic assertions and config guard checks
 
 Description:
 - Validate core business logic correctness.
@@ -1181,9 +1186,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T11.2 API integration tests for end-to-end flow (P0)
+### [x] T11.2 API integration tests for end-to-end flow (P0)
 Owner: Team Lead  
 Dependencies: T8.1, T8.2, T8.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/test/integration/api.integration.test.js`
+- Validation: integration suite covers upload->score->ranking plus invalid upload format, invalid GitHub input, and empty-resume scoring failure path
 
 Description:
 - Test full request pipeline against real API routes.
@@ -1200,9 +1210,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T11.3 Regression dataset validation and score sanity checks (P1)
+### [x] T11.3 Regression dataset validation and score sanity checks (P1)
 Owner: Team Lead  
 Dependencies: T11.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/test/regression/ranking.regression.test.js`, `docs/regression-validation.md`
+- Validation: baseline ranking order and score-bound checks pass for fixed regression dataset
 
 Description:
 - Ensure score behavior stays stable across code changes.
@@ -1220,9 +1235,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T11.4 Frontend testing for critical user journeys (P1)
+### [x] T11.4 Frontend testing for critical user journeys (P1)
 Owner: Team Lead  
 Dependencies: T9.1, T9.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `frontend/test/critical-journeys.test.js`
+- Validation: frontend tests cover recruiter form validation and upload->score->rankings flow triggers with DOM assertions
 
 Description:
 - Protect recruiter workflow from UI regressions.
@@ -1365,11 +1385,11 @@ Acceptance criteria:
 
 ## Immediate Next Actions (Recommended for this week)
 
-1. [ ] Implement unit tests for parser/scoring/ranking modules (T11.1)
-2. [ ] Implement API integration tests for upload->score->ranking flow (T11.2)
-3. [ ] Add regression dataset validation and drift checks (T11.3)
-4. [ ] Add frontend critical-flow test coverage (T11.4)
-5. [ ] Prepare scoring and delivery documentation updates (T12.1, T12.2)
+1. [ ] Update README with final setup and runbook details (T12.1)
+2. [ ] Publish scoring/model documentation with assumptions and caveats (T12.2)
+3. [ ] Create demo script and evaluation checklist (T12.3)
+4. [ ] Finalize doc links to API spec and regression report (T12.1, T12.2)
+5. [ ] Prepare release-ready summary for stakeholder demo
 
 ---
 

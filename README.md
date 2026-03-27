@@ -15,6 +15,7 @@ Automated "Proof-of-Work" validation system for authentic fresher recruitment.
 - Phase 8 complete: public API contract + OpenAPI/Postman docs
 - Phase 9 complete: recruiter dashboard workflow and ranking UI
 - Phase 10 complete: security, resilience, and operational hardening
+- Phase 11 complete: unit/integration/regression/frontend testing baseline
 
 ## Repository Structure
 
@@ -76,8 +77,7 @@ Run from repository root:
 
 ## Next Phase
 
-Phase 11 focuses on testing and validation:
-- unit tests for parser/scoring/ranking modules
-- end-to-end API integration coverage
-- regression score sanity validation
-- frontend critical user-journey tests
+Phase 12 focuses on documentation and delivery:
+- final README runbook polish
+- model/scoring documentation publish
+- demo script and evaluation checklist
