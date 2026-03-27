@@ -114,9 +114,13 @@ Acceptance criteria:
 
 ## Phase 1: Repository and Environment Setup
 
-### [ ] T1.1 Define canonical project structure (P0)
+### [x] T1.1 Define canonical project structure (P0)
 Owner: Team Lead  
 Dependencies: T0.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `docs/project-structure.md`, `backend/`, `frontend/`, `tests/`, `config/`, `scripts/`
 
 Description:
 - Establish clean folders for backend, frontend, docs, tests, and config.
@@ -137,9 +141,13 @@ Acceptance criteria:
 
 ---
 
-### [ ] T1.2 Standardize environment configuration and secrets handling (P0)
+### [x] T1.2 Standardize environment configuration and secrets handling (P0)
 Owner: Team Lead  
 Dependencies: T1.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `.env.example`, `.gitignore`, `README.md`
 
 Description:
 - Securely configure runtime variables.
@@ -163,9 +171,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T1.3 Initialize dependency management and scripts (P0)
+### [x] T1.3 Initialize dependency management and scripts (P0)
 Owner: Team Lead  
 Dependencies: T1.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `package.json`, `backend/package.json`, `frontend/package.json`
+- Validation: `npm install`, `npm run lint`, `npm run test`, `npm run start`
 
 Description:
 - Ensure repeatable local setup and run commands.
@@ -187,9 +200,13 @@ Acceptance criteria:
 
 ---
 
-### [ ] T1.4 Add baseline developer quality tooling (P1)
+### [x] T1.4 Add baseline developer quality tooling (P1)
 Owner: Team Lead  
 Dependencies: T1.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `.eslintrc.cjs`, `.prettierrc.json`, `.prettierignore`, `.editorconfig`, `docs/development-workflow.md`, `scripts/pre-commit.sample`
 
 Description:
 - Reduce regressions and maintain consistent code quality.

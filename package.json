@@ -1,0 +1,26 @@
+{
+  "name": "git-verify",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Automated proof-of-work validation system for authentic fresher recruitment",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace backend",
+    "start": "npm run start --workspace backend",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "format": "npm run format --workspaces --if-present",
+    "prepare": "echo \"Run: copy scripts/pre-commit.sample to .git/hooks/pre-commit\""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.1",
+    "prettier": "^3.5.3"
+  }
+}

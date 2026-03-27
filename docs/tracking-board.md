@@ -8,10 +8,6 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - Keep card format: `Task ID | Title | Priority | Owner | Due Date`.
 
 ## Backlog
-- T1.1 | Define canonical project structure | P0 | Team Lead | 2026-03-29
-- T1.2 | Standardize environment config and secrets | P0 | Team Lead | 2026-03-30
-- T1.3 | Initialize dependencies and scripts | P0 | Team Lead | 2026-03-31
-- T1.4 | Add linter/formatter/quality tooling | P1 | Team Lead | 2026-04-01
 - T2.1 | Build Express layered app skeleton | P0 | Team Lead | 2026-04-01
 - T2.2 | Implement global error handling contracts | P0 | Team Lead | 2026-04-02
 - T2.3 | Add endpoint input validation | P0 | Team Lead | 2026-04-02
@@ -69,6 +65,10 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - T0.1 | Finalize product scope and MVP boundaries | P0 | Team Lead | Done: 2026-03-27
 - T0.2 | Create execution roadmap with milestones | P0 | Team Lead | Done: 2026-03-27
 - T0.3 | Set up project management tracking board | P1 | Team Lead | Done: 2026-03-27
+- T1.1 | Define canonical project structure | P0 | Team Lead | Done: 2026-03-27
+- T1.2 | Standardize environment config and secrets | P0 | Team Lead | Done: 2026-03-27
+- T1.3 | Initialize dependencies and scripts | P0 | Team Lead | Done: 2026-03-27
+- T1.4 | Add linter/formatter/quality tooling | P1 | Team Lead | Done: 2026-03-27
 
 ## Weekly Operating Routine
 - Monday:

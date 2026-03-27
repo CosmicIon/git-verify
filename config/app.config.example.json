@@ -1,0 +1,19 @@
+{
+  "scoring": {
+    "atsAlpha": 0.6,
+    "atsBeta": 0.4,
+    "finalLambda": 0.5,
+    "githubWeights": {
+      "activity": 0.2,
+      "language": 0.2,
+      "quality": 0.2,
+      "consistency": 0.2,
+      "verification": 0.2
+    }
+  },
+  "limits": {
+    "maxResumeFileSizeMb": 10,
+    "maxFilesPerUpload": 20,
+    "apiRateLimitPerMinute": 60
+  }
+}
