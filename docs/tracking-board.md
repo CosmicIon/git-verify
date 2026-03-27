@@ -8,12 +8,6 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - Keep card format: `Task ID | Title | Priority | Owner | Due Date`.
 
 ## Backlog
-- T5.1 | Normalize GitHub identity input | P0 | Team Lead | 2026-04-09
-- T5.2 | Build resilient GitHub API client | P0 | Team Lead | 2026-04-09
-- T5.3 | Collect GitHub candidate metrics | P0 | Team Lead | 2026-04-10
-- T5.4 | Implement GitHub component scores | P0 | Team Lead | 2026-04-10
-- T5.5 | Implement weighted GitHub final score | P0 | Team Lead | 2026-04-11
-- T5.6 | Build skill-claim inconsistency detector | P0 | Team Lead | 2026-04-11
 - T6.1 | Implement final candidate score formula | P0 | Team Lead | 2026-04-12
 - T6.2 | Implement ranking and tie-break logic | P0 | Team Lead | 2026-04-12
 - T6.3 | Add confidence and audit metadata | P1 | Team Lead | 2026-04-13
@@ -69,6 +63,12 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - T4.2 | Implement embedding-based semantic scorer | P1 | Team Lead | Done: 2026-03-27
 - T4.3 | Calibrate weighted ATS formula | P0 | Team Lead | Done: 2026-03-27
 - T4.4 | Build ATS explainability payload | P1 | Team Lead | Done: 2026-03-27
+- T5.1 | Normalize GitHub identity input | P0 | Team Lead | Done: 2026-03-27
+- T5.2 | Build resilient GitHub API client | P0 | Team Lead | Done: 2026-03-27
+- T5.3 | Collect GitHub candidate metrics | P0 | Team Lead | Done: 2026-03-27
+- T5.4 | Implement GitHub component scores | P0 | Team Lead | Done: 2026-03-27
+- T5.5 | Implement weighted GitHub final score | P0 | Team Lead | Done: 2026-03-27
+- T5.6 | Build skill-claim inconsistency detector | P0 | Team Lead | Done: 2026-03-27
 
 ## Weekly Operating Routine
 - Monday:

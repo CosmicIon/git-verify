@@ -541,9 +541,14 @@ Acceptance criteria:
 
 ## Phase 5: GitHub Analysis and Verification Engine
 
-### [ ] T5.1 Implement GitHub identity parsing and normalization (P0)
+### [x] T5.1 Implement GitHub identity parsing and normalization (P0)
 Owner: Team Lead  
 Dependencies: T2.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/githubIdentityService.js`, `backend/src/services/candidateService.js`
+- Validation: mixed GitHub input formats normalize to canonical lowercase username
 
 Description:
 - Normalize user input into a valid GitHub username.
@@ -561,9 +566,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T5.2 Build GitHub API client with retry and rate-limit awareness (P0)
+### [x] T5.2 Build GitHub API client with retry and rate-limit awareness (P0)
 Owner: Team Lead  
 Dependencies: T5.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/githubApiClient.js`
+- Validation: API client supports retries, timeout, token auth, and rate-limit detection (`GITHUB_RATE_LIMITED`)
 
 Description:
 - Make API access resilient and traceable.
@@ -582,9 +592,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T5.3 Collect candidate GitHub metrics (P0)
+### [x] T5.3 Collect candidate GitHub metrics (P0)
 Owner: Team Lead  
 Dependencies: T5.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/githubMetricsService.js`, `backend/src/services/githubAnalysisService.js`
+- Validation: metrics object includes repository stats, language aggregation, activity windows, and skill sets
 
 Description:
 - Extract key data dimensions required by design docs.
@@ -603,9 +618,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T5.4 Implement GitHub component scoring modules (P0)
+### [x] T5.4 Implement GitHub component scoring modules (P0)
 Owner: Team Lead  
 Dependencies: T5.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/githubScoringService.js`
+- Validation: activity/language/quality/consistency/verification components returned in score payload
 
 Description:
 - Implement scored dimensions from `docs/info.md`.
@@ -625,9 +645,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T5.5 Implement final GitHub weighted scoring formula (P0)
+### [x] T5.5 Implement final GitHub weighted scoring formula (P0)
 Owner: Team Lead  
 Dependencies: T5.4
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/githubScoringService.js`, `.env.example`
+- Validation: weighted GitHub score uses env weights and enforces sum-to-1 configuration
 
 Description:
 - Combine component scores:
@@ -646,9 +671,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T5.6 Build skill-claim inconsistency detector (P0)
+### [x] T5.6 Build skill-claim inconsistency detector (P0)
 Owner: Team Lead  
 Dependencies: T5.4
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/githubVerificationService.js`, `backend/src/services/githubAnalysisService.js`, `backend/src/services/candidateService.js`
+- Validation: mismatch flags emitted with severity and unverified skill details (`SKILL_CLAIM_MISMATCH`)
 
 Description:
 - Flag mismatch between resume claims and GitHub evidence.

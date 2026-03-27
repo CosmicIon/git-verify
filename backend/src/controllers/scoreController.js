@@ -1,8 +1,8 @@
 const { calculateScores } = require("../services/candidateService");
 const { successResponse } = require("../utils/response");
 
-function scoreCandidate(req, res) {
-  const result = calculateScores({
+async function scoreCandidate(req, res) {
+  const result = await calculateScores({
     candidateId: req.body.candidateId,
     githubLink: req.body.githubLink,
     jobDescription: req.body.jobDescription,
