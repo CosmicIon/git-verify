@@ -11,6 +11,23 @@ function saveCandidateDraft(payload) {
   return created;
 }
 
+function getCandidateById(id) {
+  return inMemoryCandidates.find((candidate) => candidate.id === String(id)) || null;
+}
+
+function updateCandidateScores(id, payload) {
+  const candidate = getCandidateById(id);
+  if (!candidate) {
+    return null;
+  }
+
+  Object.assign(candidate, payload, {
+    updatedAt: new Date().toISOString(),
+  });
+
+  return candidate;
+}
+
 function listCandidates({ page, limit, sortBy, direction }) {
   const sorted = [...inMemoryCandidates].sort((a, b) => {
     const aValue = a[sortBy] ?? 0;
@@ -34,5 +51,7 @@ function listCandidates({ page, limit, sortBy, direction }) {
 
 module.exports = {
   saveCandidateDraft,
+  getCandidateById,
+  updateCandidateScores,
   listCandidates,
 };

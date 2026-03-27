@@ -437,9 +437,14 @@ Acceptance criteria:
 
 ## Phase 4: ATS Scoring Engine (NLP/ML)
 
-### [ ] T4.1 Implement TF-IDF scoring module (P0)
+### [x] T4.1 Implement TF-IDF scoring module (P0)
 Owner: Team Lead  
 Dependencies: T3.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/atsScoringService.js`
+- Validation: TF-IDF cosine component returned through score service (`atsComponents.tfidf`)
 
 Description:
 - Build baseline keyword-weighted relevance scoring.
@@ -457,9 +462,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T4.2 Implement embedding-based semantic scorer (P1)
+### [x] T4.2 Implement embedding-based semantic scorer (P1)
 Owner: Team Lead  
 Dependencies: T3.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/semanticScoringService.js`, `backend/src/services/atsScoringService.js`
+- Validation: semantic component returned through score service (`atsComponents.semantic`)
 
 Description:
 - Improve beyond exact keyword matching.
@@ -478,9 +488,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T4.3 Calibrate weighted ATS formula (P0)
+### [x] T4.3 Calibrate weighted ATS formula (P0)
 Owner: Team Lead  
 Dependencies: T4.1, T4.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/atsScoringService.js`, `.env.example`
+- Validation: ATS output uses env-configured alpha/beta and enforces `alpha + beta = 1`
 
 Description:
 - Implement formula from docs:
@@ -499,9 +514,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T4.4 Build ATS explainability payload (P1)
+### [x] T4.4 Build ATS explainability payload (P1)
 Owner: Team Lead  
 Dependencies: T4.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/atsScoringService.js`, `backend/src/services/candidateService.js`, `backend/src/controllers/scoreController.js`
+- Validation: score response includes top matched skills, missing required skills, and component contributions
 
 Description:
 - Improve transparency for recruiters.

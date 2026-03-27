@@ -56,22 +56,47 @@ function validateUploadRequest(req, _res, next) {
 }
 
 function validateScoreRequest(req, _res, next) {
-  const { githubLink, jobDescription } = req.body || {};
+  const { candidateId, githubLink, jobDescription, resumeText } = req.body || {};
 
   try {
-    assertOrThrow(isValidGithubIdentity(githubLink), {
+    const normalizedCandidateId = Number(candidateId);
+    assertOrThrow(Number.isInteger(normalizedCandidateId) && normalizedCandidateId > 0, {
       code: "VALIDATION_ERROR",
-      message: "githubLink must be a valid GitHub username or profile URL",
+      message: "candidateId must be a positive integer",
       status: 400,
-      details: { field: "githubLink" },
+      details: { field: "candidateId" },
     });
 
-    assertOrThrow(isNonEmptyString(jobDescription) && jobDescription.trim().length >= 30, {
-      code: "VALIDATION_ERROR",
-      message: "jobDescription must be at least 30 characters",
-      status: 400,
-      details: { field: "jobDescription", minLength: 30 },
-    });
+    if (githubLink !== undefined) {
+      assertOrThrow(isValidGithubIdentity(githubLink), {
+        code: "VALIDATION_ERROR",
+        message: "githubLink must be a valid GitHub username or profile URL",
+        status: 400,
+        details: { field: "githubLink" },
+      });
+    }
+
+    if (jobDescription !== undefined) {
+      assertOrThrow(isNonEmptyString(jobDescription) && jobDescription.trim().length >= 30, {
+        code: "VALIDATION_ERROR",
+        message: "jobDescription must be at least 30 characters",
+        status: 400,
+        details: { field: "jobDescription", minLength: 30 },
+      });
+    }
+
+    if (resumeText !== undefined) {
+      assertOrThrow(isNonEmptyString(resumeText) && resumeText.trim().length >= 30, {
+        code: "VALIDATION_ERROR",
+        message: "resumeText must be at least 30 characters when provided",
+        status: 400,
+        details: { field: "resumeText", minLength: 30 },
+      });
+    }
+
+    req.validatedScoreInput = {
+      candidateId: normalizedCandidateId,
+    };
 
     next();
   } catch (error) {

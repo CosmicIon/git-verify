@@ -8,10 +8,6 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - Keep card format: `Task ID | Title | Priority | Owner | Due Date`.
 
 ## Backlog
-- T4.1 | Implement TF-IDF scoring module | P0 | Team Lead | 2026-04-06
-- T4.2 | Implement embedding-based semantic scorer | P1 | Team Lead | 2026-04-07
-- T4.3 | Calibrate weighted ATS formula | P0 | Team Lead | 2026-04-08
-- T4.4 | Build ATS explainability payload | P1 | Team Lead | 2026-04-08
 - T5.1 | Normalize GitHub identity input | P0 | Team Lead | 2026-04-09
 - T5.2 | Build resilient GitHub API client | P0 | Team Lead | 2026-04-09
 - T5.3 | Collect GitHub candidate metrics | P0 | Team Lead | 2026-04-10
@@ -69,6 +65,10 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - T3.2 | Build PDF/DOCX parser adapters | P0 | Team Lead | Done: 2026-03-27
 - T3.3 | Implement preprocessing pipeline | P0 | Team Lead | Done: 2026-03-27
 - T3.4 | Add extraction quality diagnostics | P1 | Team Lead | Done: 2026-03-27
+- T4.1 | Implement TF-IDF scoring module | P0 | Team Lead | Done: 2026-03-27
+- T4.2 | Implement embedding-based semantic scorer | P1 | Team Lead | Done: 2026-03-27
+- T4.3 | Calibrate weighted ATS formula | P0 | Team Lead | Done: 2026-03-27
+- T4.4 | Build ATS explainability payload | P1 | Team Lead | Done: 2026-03-27
 
 ## Weekly Operating Routine
 - Monday:
