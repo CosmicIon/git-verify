@@ -14,6 +14,7 @@ Automated "Proof-of-Work" validation system for authentic fresher recruitment.
 - Phase 7 complete: MongoDB models and repository layer
 - Phase 8 complete: public API contract + OpenAPI/Postman docs
 - Phase 9 complete: recruiter dashboard workflow and ranking UI
+- Phase 10 complete: security, resilience, and operational hardening
 
 ## Repository Structure
 
@@ -75,8 +76,8 @@ Run from repository root:
 
 ## Next Phase
 
-Phase 10 focuses on hardening and operations:
-- upload security and sanitization
-- API security middleware (headers, CORS policy, rate limits)
-- third-party outage resilience hardening
-- structured logging and tracing improvements
+Phase 11 focuses on testing and validation:
+- unit tests for parser/scoring/ranking modules
+- end-to-end API integration coverage
+- regression score sanity validation
+- frontend critical user-journey tests

@@ -10,8 +10,15 @@ const { computeAtsFromResumes, computeSingleResumeAts } = require("./atsScoringS
 const { normalizeGithubIdentity } = require("./githubIdentityService");
 const { analyzeGithubProfile } = require("./githubAnalysisService");
 const { computeFinalScore } = require("./finalScoringService");
+const { info, warn } = require("../utils/logger");
 
 async function createUploadDraft({ githubLink, jobDescription, jobId, resumes }) {
+  info("candidate_upload_draft_started", {
+    traceable: true,
+    resumeCount: Array.isArray(resumes) ? resumes.length : 0,
+    hasJobId: Boolean(jobId),
+  });
+
   const githubUsername = normalizeGithubIdentity(githubLink);
   const normalizedJobId = jobId ? String(jobId).trim() : null;
 
@@ -40,7 +47,7 @@ async function createUploadDraft({ githubLink, jobDescription, jobId, resumes })
     });
   }
 
-  return saveCandidateDraft({
+  const saved = await saveCandidateDraft({
     githubLink,
     githubUsername,
     jobId: normalizedJobId,
@@ -51,9 +58,21 @@ async function createUploadDraft({ githubLink, jobDescription, jobId, resumes })
     finalScore: 0,
     flags: [],
   });
+
+  info("candidate_upload_draft_completed", {
+    candidateId: saved.id,
+    githubUsername,
+    hasJobId: Boolean(saved.jobId),
+  });
+
+  return saved;
 }
 
 async function calculateScores({ candidateId, githubLink, jobDescription, resumeText }) {
+  info("candidate_score_started", {
+    candidateId: String(candidateId),
+  });
+
   const candidate = await getCandidateById(candidateId);
   if (!candidate) {
     throw new AppError({
@@ -110,6 +129,7 @@ async function calculateScores({ candidateId, githubLink, jobDescription, resume
   );
 
   let githubAnalysis;
+  let partialData = null;
   try {
     githubAnalysis = await analyzeGithubProfile({
       username: normalizedGithubUsername,
@@ -127,6 +147,11 @@ async function calculateScores({ candidateId, githubLink, jobDescription, resume
     if (!recoverableCodes.has(error.code)) {
       throw error;
     }
+
+    warn("candidate_score_github_fallback", {
+      candidateId: candidate.id,
+      reasonCode: error.code,
+    });
 
     githubAnalysis = {
       metrics: null,
@@ -153,6 +178,13 @@ async function calculateScores({ candidateId, githubLink, jobDescription, resume
         },
       ],
     };
+
+    partialData = {
+      githubUnavailable: true,
+      reasonCode: error.code,
+      userMessage:
+        "GitHub data is temporarily unavailable. Final score was computed using fallback values.",
+    };
   }
 
   const githubScore = githubAnalysis.score.githubScore;
@@ -170,10 +202,11 @@ async function calculateScores({ candidateId, githubLink, jobDescription, resume
   });
 
   const scoreAudit = {
-    scoringVersion: "v1-phase6",
+    scoringVersion: "v1-phase10",
     scoringTimestamp: new Date().toISOString(),
     finalPolicy: finalResult.finalPolicy,
     confidenceScore: finalResult.confidenceScore,
+    partialData,
   };
 
   await updateCandidateScores(candidate.id, {
@@ -199,6 +232,12 @@ async function calculateScores({ candidateId, githubLink, jobDescription, resume
     },
   });
 
+  info("candidate_score_completed", {
+    candidateId: candidate.id,
+    finalScore: finalResult.finalScore,
+    usedGithubFallback: Boolean(partialData),
+  });
+
   return {
     candidateId: candidate.id,
     githubUsername: normalizedGithubUsername,
@@ -211,6 +250,10 @@ async function calculateScores({ candidateId, githubLink, jobDescription, resume
     githubComponents: githubAnalysis.score.components,
     githubReasonCodes: githubAnalysis.score.reasonCodes,
     verificationFlags: githubAnalysis.flags,
+    partialData,
+    pipelineMessage: partialData
+      ? partialData.userMessage
+      : "All scoring components completed successfully",
     finalScore: finalResult.finalScore,
     confidenceScore: finalResult.confidenceScore,
     scoreAudit,

@@ -8,10 +8,6 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - Keep card format: `Task ID | Title | Priority | Owner | Due Date`.
 
 ## Backlog
-- T10.1 | Harden upload security path | P0 | Team Lead | 2026-04-20
-- T10.2 | Add API security middleware | P0 | Team Lead | 2026-04-20
-- T10.3 | Add third-party failure resilience | P0 | Team Lead | 2026-04-21
-- T10.4 | Add structured logging and tracing | P1 | Team Lead | 2026-04-21
 - T11.1 | Unit tests for core modules | P0 | Team Lead | 2026-04-22
 - T11.2 | End-to-end API integration tests | P0 | Team Lead | 2026-04-22
 - T11.3 | Regression dataset validation | P1 | Team Lead | 2026-04-23
@@ -69,6 +65,10 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - T9.2 | Build ranked candidate dashboard | P0 | Team Lead | Done: 2026-03-27
 - T9.3 | Add flags and explainability UI | P1 | Team Lead | Done: 2026-03-27
 - T9.4 | Responsive + accessibility baseline | P1 | Team Lead | Done: 2026-03-27
+- T10.1 | Harden upload security path | P0 | Team Lead | Done: 2026-03-27
+- T10.2 | Add API security middleware | P0 | Team Lead | Done: 2026-03-27
+- T10.3 | Add third-party failure resilience | P0 | Team Lead | Done: 2026-03-27
+- T10.4 | Add structured logging and tracing | P1 | Team Lead | Done: 2026-03-27
 
 ## Weekly Operating Routine
 - Monday:

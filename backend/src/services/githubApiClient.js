@@ -1,8 +1,15 @@
 const { AppError } = require("../utils/appError");
+const { warn } = require("../utils/logger");
 
 const BASE_URL = "https://api.github.com";
 const DEFAULT_TIMEOUT_MS = Number(process.env.GITHUB_API_TIMEOUT_MS || 8000);
 const MAX_RETRIES = Number(process.env.GITHUB_API_RETRIES || 2);
+const BASE_BACKOFF_MS = Number(process.env.GITHUB_RETRY_BASE_MS || 250);
+
+function backoffDelay(attempt) {
+  const jitter = Math.floor(Math.random() * 100);
+  return BASE_BACKOFF_MS * 2 ** attempt + jitter;
+}
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -36,14 +43,10 @@ async function request(path, options = {}) {
 
       if (response.status === 403 && response.headers.get("x-ratelimit-remaining") === "0") {
         const reset = response.headers.get("x-ratelimit-reset");
-        console.warn(
-          JSON.stringify({
-            component: "githubApiClient",
-            event: "rate_limited",
-            path,
-            reset,
-          })
-        );
+        warn("github_api_rate_limited", {
+          path,
+          reset,
+        });
         throw new AppError({
           code: "GITHUB_RATE_LIMITED",
           message: "GitHub API rate limit reached",
@@ -63,16 +66,12 @@ async function request(path, options = {}) {
       }
 
       if (response.status >= 500 && attempt < MAX_RETRIES) {
-        console.warn(
-          JSON.stringify({
-            component: "githubApiClient",
-            event: "retry_on_server_error",
-            path,
-            status: response.status,
-            attempt: attempt + 1,
-          })
-        );
-        await sleep(200 * (attempt + 1));
+        warn("github_api_retry_on_server_error", {
+          path,
+          status: response.status,
+          attempt: attempt + 1,
+        });
+        await sleep(backoffDelay(attempt));
         continue;
       }
 
@@ -115,17 +114,13 @@ async function request(path, options = {}) {
         throw normalizedError;
       }
 
-      console.warn(
-        JSON.stringify({
-          component: "githubApiClient",
-          event: "retry",
-          path,
-          attempt: attempt + 1,
-          reason: normalizedError.code || error.name || "unknown",
-        })
-      );
+      warn("github_api_retry", {
+        path,
+        attempt: attempt + 1,
+        reason: normalizedError.code || error.name || "unknown",
+      });
 
-      await sleep(250 * (attempt + 1));
+      await sleep(backoffDelay(attempt));
     }
   }
 

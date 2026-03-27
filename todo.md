@@ -1056,9 +1056,14 @@ Acceptance criteria:
 
 ## Phase 10: Security, Reliability, and Operational Hardening
 
-### [ ] T10.1 Strengthen upload security and sanitization (P0)
+### [x] T10.1 Strengthen upload security and sanitization (P0)
 Owner: Team Lead  
 Dependencies: T3.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/middlewares/uploadMiddleware.js`, `backend/src/controllers/uploadController.js`
+- Validation: upload pipeline enforces MIME+extension checks, file count/size limits, sanitized filenames, and memory-buffer cleanup policy
 
 Description:
 - Prevent abuse through file handling paths.
@@ -1077,9 +1082,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T10.2 Add API security middleware (P0)
+### [x] T10.2 Add API security middleware (P0)
 Owner: Team Lead  
 Dependencies: T2.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/middlewares/securityHeaders.js`, `backend/src/middlewares/corsPolicy.js`, `backend/src/middlewares/rateLimiter.js`, `backend/src/middlewares/requestSizeGuard.js`, `backend/src/app.js`
+- Validation: API stack now applies secure headers, origin allowlist policy, per-minute request limiting, and request payload guards
 
 Description:
 - Protect backend against common web threats.
@@ -1098,9 +1108,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T10.3 Add resilience for third-party failures (P0)
+### [x] T10.3 Add resilience for third-party failures (P0)
 Owner: Team Lead  
 Dependencies: T5.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/services/githubApiClient.js`, `backend/src/services/candidateService.js`
+- Validation: GitHub calls use exponential backoff with jitter; scoring responses expose fallback partial-data message when GitHub is unavailable
 
 Description:
 - Ensure graceful behavior when GitHub API fails.
@@ -1118,9 +1133,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T10.4 Implement structured logging and request tracing (P1)
+### [x] T10.4 Implement structured logging and request tracing (P1)
 Owner: Team Lead  
 Dependencies: T2.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/utils/logger.js`, `backend/src/middlewares/requestLogger.js`, `backend/src/middlewares/errorHandler.js`, `backend/src/services/candidateService.js`
+- Validation: structured JSON logs include request trace IDs and stage events with redaction for sensitive keys
 
 Description:
 - Improve debuggability and production support.
@@ -1345,10 +1365,10 @@ Acceptance criteria:
 
 ## Immediate Next Actions (Recommended for this week)
 
-1. [ ] Harden upload and API security controls (T10.1, T10.2)
-2. [ ] Add resilience and observability improvements (T10.3, T10.4)
-3. [ ] Implement unit tests for parser/scoring/ranking modules (T11.1)
-4. [ ] Implement API integration tests for upload->score->ranking flow (T11.2)
+1. [ ] Implement unit tests for parser/scoring/ranking modules (T11.1)
+2. [ ] Implement API integration tests for upload->score->ranking flow (T11.2)
+3. [ ] Add regression dataset validation and drift checks (T11.3)
+4. [ ] Add frontend critical-flow test coverage (T11.4)
 5. [ ] Prepare scoring and delivery documentation updates (T12.1, T12.2)
 
 ---

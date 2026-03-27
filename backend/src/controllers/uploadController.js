@@ -4,7 +4,8 @@ const { successResponse } = require("../utils/response");
 
 async function uploadCandidate(req, res) {
   const input = req.validatedUploadInput || {};
-  const fileResults = await parseResumeFiles(req.files || []);
+  const uploadedFiles = req.files || [];
+  const fileResults = await parseResumeFiles(uploadedFiles);
   const parsedFiles = fileResults.filter((result) => result.status === "parsed");
   const failedFiles = fileResults.filter((result) => result.status === "failed");
 
@@ -41,6 +42,13 @@ async function uploadCandidate(req, res) {
       status: 201,
     }
   );
+
+  // Multer uses memory storage; clear buffers after processing to reduce memory pressure.
+  for (const file of uploadedFiles) {
+    if (file && file.buffer) {
+      file.buffer = Buffer.alloc(0);
+    }
+  }
 
   res.status(payload.status).json(payload.body);
 }

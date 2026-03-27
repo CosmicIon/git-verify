@@ -1,5 +1,6 @@
 const { AppError } = require("../utils/appError");
 const { errorResponse } = require("../utils/response");
+const { error: logError } = require("../utils/logger");
 
 function errorHandler(error, req, res, next) {
   void next;
@@ -36,6 +37,15 @@ function errorHandler(error, req, res, next) {
           status: 500,
           details: process.env.NODE_ENV === "development" ? { raw: error.message } : null,
         });
+
+  logError("http_request_failed", {
+    traceId: req.traceId,
+    method: req.method,
+    path: req.originalUrl,
+    statusCode: normalizedError.status,
+    code: normalizedError.code,
+    details: normalizedError.details,
+  });
 
   const body = errorResponse(req, normalizedError);
   res.status(normalizedError.status).json(body);
