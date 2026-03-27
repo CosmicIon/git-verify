@@ -4,34 +4,26 @@ Automated "Proof-of-Work" validation system for authentic fresher recruitment.
 
 GitVerify helps recruiters evaluate candidates using resume relevance and GitHub evidence, then produces a transparent ranked list with verification flags.
 
-## Project Status
+## Overview
 
-- Phase 0 complete: planning artifacts created
-- Phase 1 complete: repository scaffold and environment baseline created
-- Phase 2 complete: backend API core and validation contracts
-- Phase 3 complete: upload + resume parsing pipeline
-- Phase 4 complete: ATS scoring and explainability
-- Phase 5 complete: GitHub analysis and verification scoring
-- Phase 6 complete: final score, ranking policy, and confidence metadata
-- Phase 7 complete: MongoDB models and repository layer
-- Phase 8 complete: public API contract + OpenAPI/Postman docs
-- Phase 9 complete: recruiter dashboard workflow and ranking UI
-- Phase 10 complete: security, resilience, and operational hardening
-- Phase 11 complete: unit/integration/regression/frontend testing baseline
-- Phase 12 complete: documentation, runbook, scoring reference, and demo checklist
+GitVerify is a full-stack recruitment intelligence platform that combines:
 
-## Repository Structure
+- Resume parsing and relevance analysis
+- GitHub-based proof-of-work verification
+- Explainable candidate scoring and ranking
 
-- `backend/`: backend runtime and API code
-- `frontend/`: frontend/UI code
-- `docs/`: product and technical docs
-- `tests/`: shared test assets
-- `config/`: config templates
-- `scripts/`: automation helpers
+The goal is to support faster, more reliable fresher hiring decisions with transparent, auditable outputs.
 
-See `docs/project-structure.md` for the full structure map.
+## Key Capabilities
 
-## Architecture Summary
+- Multi-file resume upload with validation and diagnostics
+- ATS scoring with lexical and semantic components
+- GitHub profile normalization, metrics extraction, and verification scoring
+- Final weighted score, confidence score, and deterministic ranking policy
+- Recruiter dashboard for submission, scoring, ranking, and flag review
+- Security controls, rate limiting, and structured operational logging
+
+## Architecture
 
 Runtime components:
 
@@ -39,10 +31,21 @@ Runtime components:
 - Frontend dashboard (`frontend/`): static server + API proxy with recruiter workflow UI
 - Persistence: MongoDB + Mongoose repositories with in-memory fallback behavior
 - Scoring pipeline:
-	- Resume parsing + preprocessing + diagnostics
-	- ATS scoring (TF-IDF + semantic component)
-	- GitHub metrics, verification, weighted scoring
-	- Final weighted score + confidence + audit metadata
+  - Resume parsing + preprocessing + diagnostics
+  - ATS scoring (TF-IDF + semantic component)
+  - GitHub metrics, verification, weighted scoring
+  - Final weighted score + confidence + audit metadata
+
+## Technology Stack
+
+- Backend: Node.js, Express.js, Mongoose, Multer
+- Parsing: `pdf-parse`, `mammoth`
+- Frontend: vanilla JavaScript, HTML, CSS
+- Database: MongoDB
+- Testing: Node test runner, Supertest, JSDOM
+- Tooling: ESLint, Prettier
+
+## API Surface
 
 Core API namespace: `/api/v1`
 
@@ -50,6 +53,11 @@ Core API namespace: `/api/v1`
 - `POST /api/v1/score`
 - `GET /api/v1/rankings`
 - `GET /api/v1/health`
+
+Detailed API docs:
+
+- OpenAPI spec: `docs/api/openapi.yaml`
+- Postman collection: `docs/api/GitVerify.postman_collection.json`
 
 ## Prerequisites
 
@@ -61,10 +69,10 @@ Core API namespace: `/api/v1`
 
 1. Copy `.env.example` to `.env`
 2. Fill required values:
-	 - `PORT`
-	 - `MONGODB_URI`
-	 - `GITHUB_TOKEN` (recommended)
-	 - scoring and rate-limit variables as needed
+   - `PORT`
+   - `MONGODB_URI`
+   - `GITHUB_TOKEN` (recommended)
+   - scoring and rate-limit variables as needed
 
 Key environment variables (see `.env.example` for full list):
 
@@ -81,7 +89,7 @@ Key environment variables (see `.env.example` for full list):
 npm install
 ```
 
-## Runbook
+## Running The Application
 
 ### Start Backend API
 
@@ -122,13 +130,6 @@ npm run lint
 npm run test
 ```
 
-Current automated validation includes:
-
-- backend unit tests
-- backend API integration tests
-- backend regression ranking checks
-- frontend critical journey tests
-
 ## Workspace Scripts
 
 Run from repository root:
@@ -146,7 +147,20 @@ Additional workspace commands:
 - `npm run test --workspace backend`: run backend tests only
 - `npm run test --workspace frontend`: run frontend tests only
 
-## Code Quality Baseline
+## Quality And Validation
+
+- Lint: `npm run lint`
+- Full test suite: `npm run test`
+- Backend only tests: `npm run test --workspace backend`
+- Frontend only tests: `npm run test --workspace frontend`
+
+Automated coverage includes unit, integration, regression, and frontend journey tests.
+
+Regression reference:
+
+- `docs/regression-validation.md`
+
+## Engineering Standards
 
 - ESLint config: `.eslintrc.cjs`
 - Prettier config: `.prettierrc.json`
@@ -154,25 +168,18 @@ Additional workspace commands:
 - Commit workflow docs: `docs/development-workflow.md`
 - Optional hook template: `scripts/pre-commit.sample`
 
-## API and Supporting Docs
+## Project Structure
 
-- OpenAPI spec: `docs/api/openapi.yaml`
-- Postman collection: `docs/api/GitVerify.postman_collection.json`
-- Regression report: `docs/regression-validation.md`
+- `backend/`: backend runtime and API code
+- `frontend/`: frontend UI and proxy server
+- `docs/`: architecture, API, scoring, and delivery documentation
+- `tests/`: shared test assets
+- `config/`: configuration templates
+- `scripts/`: automation helpers
+
+See `docs/project-structure.md` for the full structure map.
+
+## Additional Documentation
+
 - Scoring documentation: `docs/scoring-model.md`
 - Demo script and checklist: `docs/demo-runbook.md`
-
-## Phase Planning Docs
-
-- `todo.md`
-- `docs/mvp-scope.md`
-- `docs/roadmap.md`
-- `docs/tracking-board.md`
-
-## Next Phase
-
-Phase 13 focuses on stretch enhancements:
-
-- advanced semantic model experimentation
-- multi-platform verification expansion
-- architecture scale-path evaluation
