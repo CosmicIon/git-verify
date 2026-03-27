@@ -851,9 +851,14 @@ Acceptance criteria:
 
 ## Phase 8: Public API Completion
 
-### [ ] T8.1 Implement upload API contract (P0)
+### [x] T8.1 Implement upload API contract (P0)
 Owner: Team Lead  
 Dependencies: T3.1, T7.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/controllers/uploadController.js`, `backend/src/services/candidateService.js`, `backend/src/validators/requestValidators.js`, `backend/src/models/Candidate.js`
+- Validation: upload accepts `githubLink` + `resumes` + (`jobDescription` or `jobId`), persists draft candidate, and returns `candidateId`
 
 Description:
 - Complete `POST /api/upload` according to design docs.
@@ -871,9 +876,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T8.2 Implement score computation API (P0)
+### [x] T8.2 Implement score computation API (P0)
 Owner: Team Lead  
 Dependencies: T4.3, T5.5, T6.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/controllers/scoreController.js`, `backend/src/validators/requestValidators.js`, `backend/src/services/candidateService.js`
+- Validation: score endpoint triggers ATS + GitHub + final scoring and returns explainable payload with persisted score metadata
 
 Description:
 - Complete `POST /api/score` and compute ATS, GitHub, final score.
@@ -891,9 +901,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T8.3 Implement rankings API (P0)
+### [x] T8.3 Implement rankings API (P0)
 Owner: Team Lead  
 Dependencies: T6.2, T7.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/validators/requestValidators.js`, `backend/src/repositories/candidateRepository.js`, `backend/src/controllers/rankingController.js`
+- Validation: rankings endpoint supports pagination, sorting, and filters (`flaggedOnly`, `minFinalScore`, `minAtsScore`, `minGithubScore`) with metadata
 
 Description:
 - Complete `GET /api/rankings`.
@@ -911,9 +926,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T8.4 Add API documentation (OpenAPI/Postman) (P1)
+### [x] T8.4 Add API documentation (OpenAPI/Postman) (P1)
 Owner: Team Lead  
 Dependencies: T8.1, T8.2, T8.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `docs/api/openapi.yaml`, `docs/api/GitVerify.postman_collection.json`
+- Validation: API contracts documented with request/response schemas and runnable Postman requests
 
 Description:
 - Ensure APIs are consumable by frontend and external reviewers.
@@ -1305,11 +1325,11 @@ Acceptance criteria:
 
 ## Immediate Next Actions (Recommended for this week)
 
-1. [ ] Lock MVP scope and milestone plan (T0.1, T0.2)
-2. [ ] Finish pending core items from report: scoring weight tuning, advanced GitHub validation, MongoDB integration, testing (T4.3, T5.6, T7.1, T11.x)
-3. [ ] Complete and stabilize core APIs (T8.1, T8.2, T8.3)
-4. [ ] Deliver first usable frontend ranking dashboard (T9.1, T9.2)
-5. [ ] Run end-to-end integration test pass and prepare demo checklist (T11.2, T12.3)
+1. [ ] Start frontend recruiter workflow and API integration (T9.1)
+2. [ ] Build ranked candidate dashboard view (T9.2)
+3. [ ] Add explainability and flags UI panels (T9.3)
+4. [ ] Establish responsive and accessibility baseline (T9.4)
+5. [ ] Begin API integration and unit test hardening (T11.1, T11.2)
 
 ---
 

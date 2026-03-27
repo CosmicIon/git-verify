@@ -2,11 +2,13 @@ const { calculateScores } = require("../services/candidateService");
 const { successResponse } = require("../utils/response");
 
 async function scoreCandidate(req, res) {
+  const input = req.validatedScoreInput || {};
+
   const result = await calculateScores({
-    candidateId: req.validatedScoreInput ? req.validatedScoreInput.candidateId : req.body.candidateId,
-    githubLink: req.body.githubLink,
-    jobDescription: req.body.jobDescription,
-    resumeText: req.body.resumeText,
+    candidateId: input.candidateId || req.body.candidateId,
+    githubLink: input.githubLink,
+    jobDescription: input.jobDescription,
+    resumeText: input.resumeText,
   });
 
   const payload = successResponse(req, result);

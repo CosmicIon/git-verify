@@ -43,6 +43,19 @@ function toPositiveInteger(value, fallback) {
   return parsed;
 }
 
+function isValidEntityId(value) {
+  if (!isNonEmptyString(value)) {
+    return false;
+  }
+
+  const normalized = String(value).trim();
+  const asNumber = Number(normalized);
+  const isPositiveInteger = Number.isInteger(asNumber) && asNumber > 0;
+  const isObjectId = /^[a-f\d]{24}$/i.test(normalized);
+
+  return isPositiveInteger || isObjectId;
+}
+
 function assertOrThrow(condition, spec) {
   if (!condition) {
     throw new AppError(spec);
@@ -52,6 +65,7 @@ function assertOrThrow(condition, spec) {
 module.exports = {
   ALLOWED_RESUME_MIME_TYPES,
   assertOrThrow,
+  isValidEntityId,
   isNonEmptyString,
   isValidGithubIdentity,
   toPositiveInteger,

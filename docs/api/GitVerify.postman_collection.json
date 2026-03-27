@@ -1,0 +1,110 @@
+{
+  "info": {
+    "name": "GitVerify API",
+    "_postman_id": "f84ff95f-5f80-4a6e-91e2-7d40f363f3aa",
+    "description": "Postman collection for GitVerify public APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "health"]
+        }
+      }
+    },
+    {
+      "name": "Upload Candidate",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "githubLink",
+              "value": "https://github.com/octocat",
+              "type": "text"
+            },
+            {
+              "key": "jobDescription",
+              "value": "Looking for backend engineer with Node.js, Express, MongoDB, testing, and CI/CD experience.",
+              "type": "text"
+            },
+            {
+              "key": "jobId",
+              "value": "",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "resumes",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/upload",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "upload"]
+        }
+      }
+    },
+    {
+      "name": "Score Candidate",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"candidateId\": \"{{candidateId}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/score",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "score"]
+        }
+      }
+    },
+    {
+      "name": "Get Rankings",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/rankings?page=1&limit=20&sortBy=finalScore&direction=desc&flaggedOnly=false",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "rankings"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "20" },
+            { "key": "sortBy", "value": "finalScore" },
+            { "key": "direction", "value": "desc" },
+            { "key": "flaggedOnly", "value": "false" }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "candidateId",
+      "value": "1"
+    }
+  ]
+}

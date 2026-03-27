@@ -4,6 +4,8 @@ const CandidateSchema = new mongoose.Schema(
   {
     name: { type: String, default: "" },
     email: { type: String, default: "" },
+    jobId: { type: String, default: null },
+    jobDescription: { type: String, required: true },
     resumeText: { type: String, default: "" },
     githubLink: { type: String, required: true },
     githubUsername: { type: String, required: true },
@@ -25,6 +27,7 @@ const CandidateSchema = new mongoose.Schema(
 
 CandidateSchema.index({ githubUsername: 1 });
 CandidateSchema.index({ email: 1 });
+CandidateSchema.index({ jobId: 1 });
 CandidateSchema.index({ createdAt: -1 });
 CandidateSchema.index({ finalScore: -1, githubScore: -1, atsScore: -1, updatedAt: -1 });
 CandidateSchema.index({ confidenceScore: -1, createdAt: -1 });

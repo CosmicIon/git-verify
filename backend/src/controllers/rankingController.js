@@ -14,6 +14,12 @@ async function listRankings(req, res) {
         page: req.validatedQuery.page,
         limit: req.validatedQuery.limit,
         total: result.total,
+        filters: {
+          flaggedOnly: req.validatedQuery.flaggedOnly,
+          minFinalScore: req.validatedQuery.minFinalScore,
+          minAtsScore: req.validatedQuery.minAtsScore,
+          minGithubScore: req.validatedQuery.minGithubScore,
+        },
       },
     }
   );

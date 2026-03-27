@@ -1,0 +1,320 @@
+openapi: 3.0.3
+info:
+  title: GitVerify Public API
+  version: 1.0.0
+  description: |
+    Public API contract for upload, scoring, and rankings.
+    Primary namespace is /api/v1. Legacy /api aliases are still routed for compatibility.
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/v1/health:
+    get:
+      summary: Health check
+      responses:
+        "200":
+          description: Service is healthy
+  /api/v1/upload:
+    post:
+      summary: Upload candidate resumes and create draft candidate
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - githubLink
+                - resumes
+              properties:
+                githubLink:
+                  type: string
+                  description: GitHub username or profile URL
+                jobDescription:
+                  type: string
+                  minLength: 30
+                  description: Optional when jobId is provided
+                jobId:
+                  type: string
+                  description: Optional job reference (positive integer or Mongo ObjectId)
+                resumes:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        "201":
+          description: Upload accepted and candidate draft persisted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadSuccessResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Referenced job not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/v1/score:
+    post:
+      summary: Compute ATS, GitHub, and final score for a candidate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - candidateId
+              properties:
+                candidateId:
+                  type: string
+                  description: Candidate ID (positive integer or Mongo ObjectId)
+                githubLink:
+                  type: string
+                  description: Optional GitHub identity override
+                jobDescription:
+                  type: string
+                  minLength: 30
+                  description: Optional job description override
+                resumeText:
+                  type: string
+                  minLength: 30
+                  description: Optional inline resume text fallback
+      responses:
+        "200":
+          description: Scores calculated and persisted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScoreSuccessResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Candidate not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/v1/rankings:
+    get:
+      summary: Get ranked candidates with pagination and filters
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - in: query
+          name: sortBy
+          schema:
+            type: string
+            enum: [finalScore, atsScore, githubScore, confidenceScore, createdAt]
+            default: finalScore
+        - in: query
+          name: direction
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+        - in: query
+          name: flaggedOnly
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: minFinalScore
+          schema:
+            type: number
+            minimum: 0
+            maximum: 1
+        - in: query
+          name: minAtsScore
+          schema:
+            type: number
+            minimum: 0
+            maximum: 1
+        - in: query
+          name: minGithubScore
+          schema:
+            type: number
+            minimum: 0
+            maximum: 1
+      responses:
+        "200":
+          description: Ranked candidates
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RankingsSuccessResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    ApiMeta:
+      type: object
+      properties:
+        traceId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    UploadSuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            message:
+              type: string
+            candidateId:
+              type: string
+            job:
+              type: object
+              properties:
+                jobId:
+                  type: string
+                  nullable: true
+                source:
+                  type: string
+                  enum: [job-reference, inline-description]
+            files:
+              type: array
+              items:
+                type: object
+            summary:
+              type: object
+            diagnostics:
+              type: object
+              nullable: true
+        meta:
+          allOf:
+            - $ref: "#/components/schemas/ApiMeta"
+    ScoreSuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            candidateId:
+              type: string
+            githubUsername:
+              type: string
+            atsScore:
+              type: number
+            githubScore:
+              type: number
+            finalScore:
+              type: number
+            confidenceScore:
+              type: number
+            atsComponents:
+              type: object
+            atsExplainability:
+              type: object
+            githubComponents:
+              type: object
+            githubReasonCodes:
+              type: array
+              items:
+                type: string
+            verificationFlags:
+              type: array
+              items:
+                type: object
+            scoreAudit:
+              type: object
+        meta:
+          allOf:
+            - $ref: "#/components/schemas/ApiMeta"
+    RankingsSuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  githubUsername:
+                    type: string
+                  atsScore:
+                    type: number
+                  githubScore:
+                    type: number
+                  finalScore:
+                    type: number
+                  confidenceScore:
+                    type: number
+                  rank:
+                    type: integer
+                  flags:
+                    type: array
+                    items:
+                      type: object
+        meta:
+          allOf:
+            - $ref: "#/components/schemas/ApiMeta"
+            - type: object
+              properties:
+                page:
+                  type: integer
+                limit:
+                  type: integer
+                total:
+                  type: integer
+                filters:
+                  type: object
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              nullable: true
+        meta:
+          allOf:
+            - $ref: "#/components/schemas/ApiMeta"

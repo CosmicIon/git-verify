@@ -4,19 +4,47 @@ const {
   saveCandidateDraft,
   updateCandidateScores,
 } = require("../repositories/candidateRepository");
+const { getJobById } = require("../repositories/jobRepository");
 const { AppError } = require("../utils/appError");
 const { computeAtsFromResumes, computeSingleResumeAts } = require("./atsScoringService");
 const { normalizeGithubIdentity } = require("./githubIdentityService");
 const { analyzeGithubProfile } = require("./githubAnalysisService");
 const { computeFinalScore } = require("./finalScoringService");
 
-async function createUploadDraft({ githubLink, jobDescription, resumes }) {
+async function createUploadDraft({ githubLink, jobDescription, jobId, resumes }) {
   const githubUsername = normalizeGithubIdentity(githubLink);
+  const normalizedJobId = jobId ? String(jobId).trim() : null;
+
+  let resolvedJobDescription = jobDescription ? String(jobDescription).trim() : "";
+
+  if (normalizedJobId && !resolvedJobDescription) {
+    const foundJob = await getJobById(normalizedJobId);
+    if (!foundJob) {
+      throw new AppError({
+        code: "NOT_FOUND",
+        message: "Job reference not found",
+        status: 404,
+        details: { field: "jobId", value: normalizedJobId },
+      });
+    }
+
+    resolvedJobDescription = foundJob.jobDescription;
+  }
+
+  if (!resolvedJobDescription) {
+    throw new AppError({
+      code: "ATS_INPUT_ERROR",
+      message: "Job description is required for candidate upload",
+      status: 400,
+      details: { fields: ["jobDescription", "jobId"] },
+    });
+  }
 
   return saveCandidateDraft({
     githubLink,
     githubUsername,
-    jobDescription,
+    jobId: normalizedJobId,
+    jobDescription: resolvedJobDescription,
     resumes,
     atsScore: 0,
     githubScore: 0,

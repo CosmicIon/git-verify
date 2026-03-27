@@ -3,13 +3,15 @@ const { parseResumeFiles } = require("../services/resumeParserService");
 const { successResponse } = require("../utils/response");
 
 async function uploadCandidate(req, res) {
+  const input = req.validatedUploadInput || {};
   const fileResults = await parseResumeFiles(req.files || []);
   const parsedFiles = fileResults.filter((result) => result.status === "parsed");
   const failedFiles = fileResults.filter((result) => result.status === "failed");
 
   const record = await createUploadDraft({
-    githubLink: req.body.githubLink,
-    jobDescription: req.body.jobDescription,
+    githubLink: input.githubLink,
+    jobDescription: input.jobDescription,
+    jobId: input.jobId,
     resumes: fileResults,
   });
 
@@ -20,8 +22,12 @@ async function uploadCandidate(req, res) {
   const payload = successResponse(
     req,
     {
-      message: "Upload processed",
+      message: "Upload successful",
       candidateId: record.id,
+      job: {
+        jobId: record.jobId,
+        source: record.jobId ? "job-reference" : "inline-description",
+      },
       files: fileResults,
       summary: {
         totalFiles: fileResults.length,

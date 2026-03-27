@@ -12,6 +12,8 @@ function toEntity(candidate) {
     id: String(candidate._id || candidate.id),
     name: candidate.name || "",
     email: candidate.email || "",
+    jobId: candidate.jobId || null,
+    jobDescription: candidate.jobDescription || "",
     resumeText: candidate.resumeText || "",
     githubLink: candidate.githubLink,
     githubUsername: candidate.githubUsername,
@@ -85,10 +87,57 @@ async function updateCandidateScores(id, payload) {
   return candidate;
 }
 
-async function listCandidates({ page, limit, sortBy, direction }) {
+function applyCandidateFilters(candidates, query) {
+  return candidates.filter((candidate) => {
+    if (query.flaggedOnly && (!Array.isArray(candidate.flags) || candidate.flags.length === 0)) {
+      return false;
+    }
+
+    if (
+      Number.isFinite(query.minFinalScore)
+      && Number(candidate.finalScore || 0) < query.minFinalScore
+    ) {
+      return false;
+    }
+
+    if (
+      Number.isFinite(query.minAtsScore)
+      && Number(candidate.atsScore || 0) < query.minAtsScore
+    ) {
+      return false;
+    }
+
+    if (
+      Number.isFinite(query.minGithubScore)
+      && Number(candidate.githubScore || 0) < query.minGithubScore
+    ) {
+      return false;
+    }
+
+    return true;
+  });
+}
+
+async function listCandidates({
+  page,
+  limit,
+  sortBy,
+  direction,
+  flaggedOnly,
+  minFinalScore,
+  minAtsScore,
+  minGithubScore,
+}) {
   if (isDatabaseReady()) {
     const all = await CandidateModel.find().lean();
-    return rankCandidates(all.map(toEntity), {
+    const filtered = applyCandidateFilters(all.map(toEntity), {
+      flaggedOnly,
+      minFinalScore,
+      minAtsScore,
+      minGithubScore,
+    });
+
+    return rankCandidates(filtered, {
       page,
       limit,
       sortBy,
@@ -96,7 +145,14 @@ async function listCandidates({ page, limit, sortBy, direction }) {
     });
   }
 
-  return rankCandidates(inMemoryCandidates, {
+  const filtered = applyCandidateFilters(inMemoryCandidates, {
+    flaggedOnly,
+    minFinalScore,
+    minAtsScore,
+    minGithubScore,
+  });
+
+  return rankCandidates(filtered, {
     page,
     limit,
     sortBy,
