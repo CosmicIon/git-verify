@@ -1,1 +1,1 @@
-console.log("GitVerify frontend scaffold ready");
+require("./server");

@@ -953,9 +953,14 @@ Acceptance criteria:
 
 ## Phase 9: Frontend Dashboard and UX
 
-### [ ] T9.1 Build recruiter input workflow UI (P0)
+### [x] T9.1 Build recruiter input workflow UI (P0)
 Owner: Team Lead  
 Dependencies: T8.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `frontend/src/index.html`, `frontend/src/app.js`, `frontend/src/server.js`
+- Validation: form supports multi-resume upload, GitHub input validation, jobDescription/jobId entry, and upload->score flow trigger
 
 Description:
 - Provide input form for resumes, GitHub links, and job description.
@@ -974,9 +979,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T9.2 Build candidate results table with ranking view (P0)
+### [x] T9.2 Build candidate results table with ranking view (P0)
 Owner: Team Lead  
 Dependencies: T8.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `frontend/src/index.html`, `frontend/src/app.js`
+- Validation: rankings table renders API values with sort/filter controls and refresh flow
 
 Description:
 - Visualize ranking output clearly.
@@ -994,9 +1004,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T9.3 Add verification flags and explainability panels (P1)
+### [x] T9.3 Add verification flags and explainability panels (P1)
 Owner: Team Lead  
 Dependencies: T8.2, T8.3
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `frontend/src/app.js`, `frontend/src/index.html`
+- Validation: candidate details panel shows ATS explainability, GitHub reason codes, and verification flags with severity
 
 Description:
 - Make decisions transparent for recruiters.
@@ -1014,9 +1029,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T9.4 Ensure responsive and accessible UI baseline (P1)
+### [x] T9.4 Ensure responsive and accessible UI baseline (P1)
 Owner: Team Lead  
 Dependencies: T9.1, T9.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `frontend/src/styles.css`, `frontend/src/index.html`
+- Validation: responsive breakpoints for mobile/tablet, visible focus states, ARIA live status text, and semantic form/table structure
 
 Description:
 - Keep dashboard usable across devices.
@@ -1325,11 +1345,11 @@ Acceptance criteria:
 
 ## Immediate Next Actions (Recommended for this week)
 
-1. [ ] Start frontend recruiter workflow and API integration (T9.1)
-2. [ ] Build ranked candidate dashboard view (T9.2)
-3. [ ] Add explainability and flags UI panels (T9.3)
-4. [ ] Establish responsive and accessibility baseline (T9.4)
-5. [ ] Begin API integration and unit test hardening (T11.1, T11.2)
+1. [ ] Harden upload and API security controls (T10.1, T10.2)
+2. [ ] Add resilience and observability improvements (T10.3, T10.4)
+3. [ ] Implement unit tests for parser/scoring/ranking modules (T11.1)
+4. [ ] Implement API integration tests for upload->score->ranking flow (T11.2)
+5. [ ] Prepare scoring and delivery documentation updates (T12.1, T12.2)
 
 ---
 

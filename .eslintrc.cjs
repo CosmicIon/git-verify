@@ -17,5 +17,12 @@ module.exports = {
         node: false,
       },
     },
+    {
+      files: ["frontend/src/server.js", "frontend/src/main.js"],
+      env: {
+        browser: false,
+        node: true,
+      },
+    },
   ],
 };

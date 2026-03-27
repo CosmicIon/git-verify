@@ -6,6 +6,14 @@ Automated "Proof-of-Work" validation system for authentic fresher recruitment.
 
 - Phase 0 complete: planning artifacts created
 - Phase 1 complete: repository scaffold and environment baseline created
+- Phase 2 complete: backend API core and validation contracts
+- Phase 3 complete: upload + resume parsing pipeline
+- Phase 4 complete: ATS scoring and explainability
+- Phase 5 complete: GitHub analysis and verification scoring
+- Phase 6 complete: final score, ranking policy, and confidence metadata
+- Phase 7 complete: MongoDB models and repository layer
+- Phase 8 complete: public API contract + OpenAPI/Postman docs
+- Phase 9 complete: recruiter dashboard workflow and ranking UI
 
 ## Repository Structure
 
@@ -45,6 +53,7 @@ Run from repository root:
 
 - `npm run dev`: start backend in watch mode
 - `npm run start`: start backend once
+- `npm run dev --workspace frontend`: start frontend dashboard server on port 4173 (default)
 - `npm run test`: run workspace tests
 - `npm run lint`: lint workspace JS files
 - `npm run format`: format workspace JS files
@@ -66,8 +75,8 @@ Run from repository root:
 
 ## Next Phase
 
-Phase 2 starts backend API core implementation:
-- Express app skeleton
-- standardized error handling
-- request validation
-- route versioning
+Phase 10 focuses on hardening and operations:
+- upload security and sanitization
+- API security middleware (headers, CORS policy, rate limits)
+- third-party outage resilience hardening
+- structured logging and tracing improvements

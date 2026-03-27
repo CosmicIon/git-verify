@@ -8,10 +8,6 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - Keep card format: `Task ID | Title | Priority | Owner | Due Date`.
 
 ## Backlog
-- T9.1 | Build recruiter input workflow UI | P0 | Team Lead | 2026-04-17
-- T9.2 | Build ranked candidate dashboard | P0 | Team Lead | 2026-04-18
-- T9.3 | Add flags and explainability UI | P1 | Team Lead | 2026-04-19
-- T9.4 | Responsive + accessibility baseline | P1 | Team Lead | 2026-04-19
 - T10.1 | Harden upload security path | P0 | Team Lead | 2026-04-20
 - T10.2 | Add API security middleware | P0 | Team Lead | 2026-04-20
 - T10.3 | Add third-party failure resilience | P0 | Team Lead | 2026-04-21
@@ -69,6 +65,10 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - T8.2 | Complete score API contract | P0 | Team Lead | Done: 2026-03-27
 - T8.3 | Complete rankings API contract | P0 | Team Lead | Done: 2026-03-27
 - T8.4 | Add OpenAPI/Postman documentation | P1 | Team Lead | Done: 2026-03-27
+- T9.1 | Build recruiter input workflow UI | P0 | Team Lead | Done: 2026-03-27
+- T9.2 | Build ranked candidate dashboard | P0 | Team Lead | Done: 2026-03-27
+- T9.3 | Add flags and explainability UI | P1 | Team Lead | Done: 2026-03-27
+- T9.4 | Responsive + accessibility baseline | P1 | Team Lead | Done: 2026-03-27
 
 ## Weekly Operating Routine
 - Monday:
