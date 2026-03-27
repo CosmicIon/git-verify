@@ -8,9 +8,7 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - Keep card format: `Task ID | Title | Priority | Owner | Due Date`.
 
 ## Backlog
-- T12.1 | Update README runbook and setup | P0 | Team Lead | 2026-04-23
-- T12.2 | Publish scoring documentation | P1 | Team Lead | 2026-04-24
-- T12.3 | Create demo script and checklist | P1 | Team Lead | 2026-04-24
+- None
 
 ## In Progress
 - None
@@ -69,6 +67,9 @@ Use this board until you move tasks to GitHub Projects/Jira.
 - T11.2 | End-to-end API integration tests | P0 | Team Lead | Done: 2026-03-27
 - T11.3 | Regression dataset validation | P1 | Team Lead | Done: 2026-03-27
 - T11.4 | Frontend critical flow tests | P1 | Team Lead | Done: 2026-03-27
+- T12.1 | Update README runbook and setup | P0 | Team Lead | Done: 2026-03-27
+- T12.2 | Publish scoring documentation | P1 | Team Lead | Done: 2026-03-27
+- T12.3 | Create demo script and checklist | P1 | Team Lead | Done: 2026-03-27
 
 ## Weekly Operating Routine
 - Monday:

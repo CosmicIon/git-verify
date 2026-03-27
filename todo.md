@@ -1262,9 +1262,14 @@ Acceptance criteria:
 
 ## Phase 12: Documentation and Delivery
 
-### [ ] T12.1 Update README with setup, architecture, and runbook (P0)
+### [x] T12.1 Update README with setup, architecture, and runbook (P0)
 Owner: Team Lead  
 Dependencies: T1.2, T8.4
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `README.md`
+- Validation: README now includes prerequisites, env setup, architecture summary, backend/frontend runbook, quality gates, and API/doc links
 
 Description:
 - Make repository easy to run and evaluate.
@@ -1283,9 +1288,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T12.2 Publish model/scoring documentation (P1)
+### [x] T12.2 Publish model/scoring documentation (P1)
 Owner: Team Lead  
 Dependencies: T4.3, T5.5, T6.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `docs/scoring-model.md`
+- Validation: scoring documentation now covers ATS/GitHub/final formulas, configuration constraints, assumptions, limitations, and fairness caveats
 
 Description:
 - Document formulas, assumptions, and tuning decisions.
@@ -1304,9 +1314,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T12.3 Create demo script and evaluation checklist (P1)
+### [x] T12.3 Create demo script and evaluation checklist (P1)
 Owner: Team Lead  
 Dependencies: T9.3, T11.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `docs/demo-runbook.md`
+- Validation: runbook includes pre-demo setup, scripted walkthrough, talking points, and functional/quality/operational checklist
 
 Description:
 - Prepare for viva/demo and stakeholder walkthrough.
@@ -1385,11 +1400,11 @@ Acceptance criteria:
 
 ## Immediate Next Actions (Recommended for this week)
 
-1. [ ] Update README with final setup and runbook details (T12.1)
-2. [ ] Publish scoring/model documentation with assumptions and caveats (T12.2)
-3. [ ] Create demo script and evaluation checklist (T12.3)
-4. [ ] Finalize doc links to API spec and regression report (T12.1, T12.2)
-5. [ ] Prepare release-ready summary for stakeholder demo
+1. [ ] Begin Phase 13.1 transformer-based semantic scoring benchmark design
+2. [ ] Define Phase 13.2 multi-platform verification proposal scope
+3. [ ] Draft Phase 13.3 monolith-to-service boundary evaluation memo
+4. [ ] Expand regression dataset for cross-domain job profiles
+5. [ ] Collect stakeholder feedback from Phase 12 demo runbook
 
 ---
 
