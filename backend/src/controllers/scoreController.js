@@ -3,7 +3,7 @@ const { successResponse } = require("../utils/response");
 
 async function scoreCandidate(req, res) {
   const result = await calculateScores({
-    candidateId: req.body.candidateId,
+    candidateId: req.validatedScoreInput ? req.validatedScoreInput.candidateId : req.body.candidateId,
     githubLink: req.body.githubLink,
     jobDescription: req.body.jobDescription,
     resumeText: req.body.resumeText,

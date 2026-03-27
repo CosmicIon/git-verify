@@ -1,8 +1,8 @@
 const { getRankings } = require("../services/candidateService");
 const { successResponse } = require("../utils/response");
 
-function listRankings(req, res) {
-  const result = getRankings(req.validatedQuery);
+async function listRankings(req, res) {
+  const result = await getRankings(req.validatedQuery);
 
   const payload = successResponse(
     req,

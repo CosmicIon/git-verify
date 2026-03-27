@@ -7,7 +7,7 @@ async function uploadCandidate(req, res) {
   const parsedFiles = fileResults.filter((result) => result.status === "parsed");
   const failedFiles = fileResults.filter((result) => result.status === "failed");
 
-  const record = createUploadDraft({
+  const record = await createUploadDraft({
     githubLink: req.body.githubLink,
     jobDescription: req.body.jobDescription,
     resumes: fileResults,

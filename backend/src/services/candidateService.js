@@ -10,7 +10,7 @@ const { normalizeGithubIdentity } = require("./githubIdentityService");
 const { analyzeGithubProfile } = require("./githubAnalysisService");
 const { computeFinalScore } = require("./finalScoringService");
 
-function createUploadDraft({ githubLink, jobDescription, resumes }) {
+async function createUploadDraft({ githubLink, jobDescription, resumes }) {
   const githubUsername = normalizeGithubIdentity(githubLink);
 
   return saveCandidateDraft({
@@ -26,7 +26,7 @@ function createUploadDraft({ githubLink, jobDescription, resumes }) {
 }
 
 async function calculateScores({ candidateId, githubLink, jobDescription, resumeText }) {
-  const candidate = getCandidateById(candidateId);
+  const candidate = await getCandidateById(candidateId);
   if (!candidate) {
     throw new AppError({
       code: "NOT_FOUND",
@@ -148,7 +148,7 @@ async function calculateScores({ candidateId, githubLink, jobDescription, resume
     confidenceScore: finalResult.confidenceScore,
   };
 
-  updateCandidateScores(candidate.id, {
+  await updateCandidateScores(candidate.id, {
     githubUsername: normalizedGithubUsername,
     atsScore: atsResult.atsScore,
     githubScore,
@@ -189,7 +189,7 @@ async function calculateScores({ candidateId, githubLink, jobDescription, resume
   };
 }
 
-function getRankings(query) {
+async function getRankings(query) {
   return listCandidates(query);
 }
 

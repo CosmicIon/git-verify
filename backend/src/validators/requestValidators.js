@@ -59,10 +59,14 @@ function validateScoreRequest(req, _res, next) {
   const { candidateId, githubLink, jobDescription, resumeText } = req.body || {};
 
   try {
-    const normalizedCandidateId = Number(candidateId);
-    assertOrThrow(Number.isInteger(normalizedCandidateId) && normalizedCandidateId > 0, {
+    const rawCandidateId = String(candidateId || "").trim();
+    const asNumber = Number(rawCandidateId);
+    const isPositiveInteger = Number.isInteger(asNumber) && asNumber > 0;
+    const isObjectId = /^[a-f\d]{24}$/i.test(rawCandidateId);
+
+    assertOrThrow(isPositiveInteger || isObjectId, {
       code: "VALIDATION_ERROR",
-      message: "candidateId must be a positive integer",
+      message: "candidateId must be a positive integer or a Mongo ObjectId",
       status: 400,
       details: { field: "candidateId" },
     });
@@ -95,7 +99,7 @@ function validateScoreRequest(req, _res, next) {
     }
 
     req.validatedScoreInput = {
-      candidateId: normalizedCandidateId,
+      candidateId: rawCandidateId,
     };
 
     next();

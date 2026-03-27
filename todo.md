@@ -775,9 +775,14 @@ Acceptance criteria:
 
 ## Phase 7: Database and Persistence (MongoDB)
 
-### [ ] T7.1 Design and implement Mongoose schemas (P0)
+### [x] T7.1 Design and implement Mongoose schemas (P0)
 Owner: Team Lead  
 Dependencies: T1.2
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/models/Candidate.js`, `backend/src/models/Job.js`, `backend/src/database/connection.js`
+- Validation: Mongoose models and connection bootstrap integrated in app startup
 
 Description:
 - Persist candidates, jobs, and computed results.
@@ -795,9 +800,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T7.2 Add indexes for query performance (P1)
+### [x] T7.2 Add indexes for query performance (P1)
 Owner: Team Lead  
 Dependencies: T7.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/models/Candidate.js`, `backend/src/models/Job.js`
+- Validation: indexes added for `githubUsername`, `email`, `createdAt`, and ranking-related score fields
 
 Description:
 - Optimize common reads/writes.
@@ -814,9 +824,14 @@ Acceptance criteria:
 
 ---
 
-### [ ] T7.3 Implement repository/data access layer (P1)
+### [x] T7.3 Implement repository/data access layer (P1)
 Owner: Team Lead  
 Dependencies: T7.1
+
+Status update:
+- Completed on 2026-03-27
+- Artifacts: `backend/src/repositories/candidateRepository.js`, `backend/src/repositories/jobRepository.js`, `backend/src/services/candidateService.js`, `backend/src/controllers/uploadController.js`, `backend/src/controllers/rankingController.js`
+- Validation: candidate service uses repository methods with async DB path and in-memory fallback
 
 Description:
 - Keep DB logic isolated from business logic.
