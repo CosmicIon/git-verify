@@ -35,7 +35,7 @@ function toEntity(candidate) {
 async function saveCandidateDraft(payload) {
   if (isDatabaseReady()) {
     const created = await CandidateModel.create(payload);
-    return toEntity(created.toObject());
+    return toEntity(created.get({ plain: true }));
   }
 
   const created = {
@@ -51,8 +51,8 @@ async function saveCandidateDraft(payload) {
 
 async function getCandidateById(id) {
   if (isDatabaseReady()) {
-    const found = await CandidateModel.findById(id).lean();
-    return toEntity(found);
+    const found = await CandidateModel.findByPk(id);
+    return toEntity(found ? found.get({ plain: true }) : null);
   }
 
   return inMemoryCandidates.find((candidate) => candidate.id === String(id)) || null;
@@ -60,19 +60,14 @@ async function getCandidateById(id) {
 
 async function updateCandidateScores(id, payload) {
   if (isDatabaseReady()) {
-    const updated = await CandidateModel.findByIdAndUpdate(
-      id,
-      {
-        $set: {
-          ...payload,
-        },
-      },
-      {
-        new: true,
-      }
-    ).lean();
-
-    return toEntity(updated);
+    const [updatedCount] = await CandidateModel.update(payload, {
+      where: { id }
+    });
+    
+    if (updatedCount === 0) return null;
+    
+    const updated = await CandidateModel.findByPk(id);
+    return toEntity(updated.get({ plain: true }));
   }
 
   const candidate = inMemoryCandidates.find((item) => item.id === String(id));
@@ -129,8 +124,8 @@ async function listCandidates({
   minGithubScore,
 }) {
   if (isDatabaseReady()) {
-    const all = await CandidateModel.find().lean();
-    const filtered = applyCandidateFilters(all.map(toEntity), {
+    const all = await CandidateModel.findAll();
+    const filtered = applyCandidateFilters(all.map(c => toEntity(c.get({ plain: true }))), {
       flaggedOnly,
       minFinalScore,
       minAtsScore,

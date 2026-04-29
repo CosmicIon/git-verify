@@ -1,20 +1,29 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const { sequelize } = require("../database/connection");
 
-const JobSchema = new mongoose.Schema(
+const JobModel = sequelize.define(
+  "Job",
   {
-    jobDescription: { type: String, required: true },
-    requiredSkills: { type: [String], default: [] },
-    title: { type: String, default: "" },
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    jobDescription: { type: DataTypes.TEXT("long"), allowNull: false },
+    requiredSkills: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      get() {
+        const val = this.getDataValue('requiredSkills');
+        return typeof val === 'string' ? JSON.parse(val) : (val || []);
+      }
+    },
+    title: { type: DataTypes.STRING, defaultValue: "" },
   },
   {
     timestamps: true,
   }
 );
-
-JobSchema.index({ createdAt: -1 });
-JobSchema.index({ requiredSkills: 1 });
-
-const JobModel = mongoose.model("Job", JobSchema);
 
 module.exports = {
   JobModel,

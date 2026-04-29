@@ -1,38 +1,71 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const { sequelize } = require("../database/connection");
 
-const CandidateSchema = new mongoose.Schema(
+const CandidateModel = sequelize.define(
+  "Candidate",
   {
-    name: { type: String, default: "" },
-    email: { type: String, default: "" },
-    jobId: { type: String, default: null },
-    jobDescription: { type: String, required: true },
-    resumeText: { type: String, default: "" },
-    githubLink: { type: String, required: true },
-    githubUsername: { type: String, required: true },
-    resumes: { type: [mongoose.Schema.Types.Mixed], default: [] },
-    atsScore: { type: Number, default: 0, min: 0, max: 1 },
-    githubScore: { type: Number, default: 0, min: 0, max: 1 },
-    finalScore: { type: Number, default: 0, min: 0, max: 1 },
-    confidenceScore: { type: Number, default: 0, min: 0, max: 1 },
-    rank: { type: Number, default: null },
-    flags: { type: [mongoose.Schema.Types.Mixed], default: [] },
-    atsDetails: { type: mongoose.Schema.Types.Mixed, default: null },
-    githubDetails: { type: mongoose.Schema.Types.Mixed, default: null },
-    scoreAudit: { type: mongoose.Schema.Types.Mixed, default: null },
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    name: { type: DataTypes.STRING, defaultValue: "" },
+    email: { type: DataTypes.STRING, defaultValue: "" },
+    jobId: { type: DataTypes.STRING, defaultValue: null },
+    jobDescription: { type: DataTypes.TEXT("long"), allowNull: false },
+    resumeText: { type: DataTypes.TEXT("long"), allowNull: true },
+    githubLink: { type: DataTypes.STRING, allowNull: false },
+    githubUsername: { type: DataTypes.STRING, allowNull: false },
+    resumes: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      get() {
+        const val = this.getDataValue('resumes');
+        return typeof val === 'string' ? JSON.parse(val) : (val || []);
+      }
+    },
+    atsScore: { type: DataTypes.FLOAT, defaultValue: 0 },
+    githubScore: { type: DataTypes.FLOAT, defaultValue: 0 },
+    finalScore: { type: DataTypes.FLOAT, defaultValue: 0 },
+    confidenceScore: { type: DataTypes.FLOAT, defaultValue: 0 },
+    rank: { type: DataTypes.INTEGER, defaultValue: null },
+    flags: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      get() {
+        const val = this.getDataValue('flags');
+        return typeof val === 'string' ? JSON.parse(val) : (val || []);
+      }
+    },
+    atsDetails: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      get() {
+        const val = this.getDataValue('atsDetails');
+        return typeof val === 'string' ? JSON.parse(val) : val;
+      }
+    },
+    githubDetails: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      get() {
+        const val = this.getDataValue('githubDetails');
+        return typeof val === 'string' ? JSON.parse(val) : val;
+      }
+    },
+    scoreAudit: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      get() {
+        const val = this.getDataValue('scoreAudit');
+        return typeof val === 'string' ? JSON.parse(val) : val;
+      }
+    },
   },
   {
     timestamps: true,
   }
 );
-
-CandidateSchema.index({ githubUsername: 1 });
-CandidateSchema.index({ email: 1 });
-CandidateSchema.index({ jobId: 1 });
-CandidateSchema.index({ createdAt: -1 });
-CandidateSchema.index({ finalScore: -1, githubScore: -1, atsScore: -1, updatedAt: -1 });
-CandidateSchema.index({ confidenceScore: -1, createdAt: -1 });
-
-const CandidateModel = mongoose.model("Candidate", CandidateSchema);
 
 module.exports = {
   CandidateModel,

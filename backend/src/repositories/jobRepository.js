@@ -21,7 +21,7 @@ function toEntity(job) {
 async function createJob(payload) {
   if (isDatabaseReady()) {
     const created = await JobModel.create(payload);
-    return toEntity(created.toObject());
+    return toEntity(created.get({ plain: true }));
   }
 
   const created = {
@@ -39,8 +39,8 @@ async function createJob(payload) {
 
 async function getJobById(id) {
   if (isDatabaseReady()) {
-    const found = await JobModel.findById(id).lean();
-    return toEntity(found);
+    const found = await JobModel.findByPk(id);
+    return toEntity(found ? found.get({ plain: true }) : null);
   }
 
   return inMemoryJobs.find((job) => job.id === String(id)) || null;
@@ -49,14 +49,15 @@ async function getJobById(id) {
 async function listJobs({ page = 1, limit = 20 } = {}) {
   if (isDatabaseReady()) {
     const skip = (page - 1) * limit;
-    const [items, total] = await Promise.all([
-      JobModel.find().sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
-      JobModel.countDocuments(),
-    ]);
+    const { count, rows } = await JobModel.findAndCountAll({
+      order: [['createdAt', 'DESC']],
+      offset: skip,
+      limit: limit,
+    });
 
     return {
-      total,
-      items: items.map(toEntity),
+      total: count,
+      items: rows.map(r => toEntity(r.get({ plain: true }))),
     };
   }
 
