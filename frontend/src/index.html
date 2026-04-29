@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitVerify Recruiter Console</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow">GitVerify</p>
+        <h1>Recruiter Intelligence Console</h1>
+        <p class="subtext">
+          Upload resumes, trigger score computation, and review flagged candidates with explainability details.
+        </p>
+      </header>
+
+      <section class="panel panel-form" aria-labelledby="candidate-input-title">
+        <div class="panel-header">
+          <h2 id="candidate-input-title">Candidate Input</h2>
+          <span class="panel-tag">Phase 9</span>
+        </div>
+        <form id="candidate-form" class="candidate-form" novalidate>
+          <label>
+            GitHub Link or Username
+            <input type="text" id="githubLink" name="githubLink" placeholder="https://github.com/octocat" required />
+          </label>
+
+          <div class="grid-two">
+            <label>
+              Existing Job ID (optional)
+              <input type="text" id="jobId" name="jobId" placeholder="Mongo ObjectId or numeric id" />
+            </label>
+            <label>
+              Backend API Path
+              <input type="text" value="/api/v1" disabled aria-disabled="true" />
+            </label>
+          </div>
+
+          <label>
+            Job Description
+            <textarea
+              id="jobDescription"
+              name="jobDescription"
+              rows="4"
+              placeholder="Paste the target job description (required if Job ID is empty)"
+            ></textarea>
+          </label>
+
+          <label>
+            Resume Files (PDF/DOCX, up to configured limits)
+            <input type="file" id="resumes" name="resumes" multiple accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required />
+          </label>
+
+          <div class="actions">
+            <button type="submit" id="submit-button">Upload & Score</button>
+            <p id="form-status" class="status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel panel-controls" aria-labelledby="rankings-controls-title">
+        <div class="panel-header">
+          <h2 id="rankings-controls-title">Rankings Controls</h2>
+        </div>
+        <form id="filters-form" class="filters-form">
+          <label>
+            Sort By
+            <select id="sortBy" name="sortBy">
+              <option value="finalScore">Final Score</option>
+              <option value="atsScore">ATS Score</option>
+              <option value="githubScore">GitHub Score</option>
+              <option value="confidenceScore">Confidence</option>
+              <option value="createdAt">Created At</option>
+            </select>
+          </label>
+          <label>
+            Direction
+            <select id="direction" name="direction">
+              <option value="desc">Descending</option>
+              <option value="asc">Ascending</option>
+            </select>
+          </label>
+          <label>
+            Min Final Score
+            <input type="number" id="minFinalScore" name="minFinalScore" min="0" max="1" step="0.01" placeholder="0.00" />
+          </label>
+          <label>
+            <input type="checkbox" id="flaggedOnly" name="flaggedOnly" />
+            Flagged candidates only
+          </label>
+          <button type="submit">Refresh Rankings</button>
+        </form>
+      </section>
+
+      <section class="panel panel-table" aria-labelledby="rankings-title">
+        <div class="panel-header">
+          <h2 id="rankings-title">Candidate Rankings</h2>
+          <p id="table-meta" class="table-meta">No data loaded yet.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Candidate</th>
+                <th>ATS</th>
+                <th>GitHub</th>
+                <th>Final</th>
+                <th>Confidence</th>
+                <th>Flags</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody id="rankings-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel panel-details" aria-labelledby="details-title">
+        <div class="panel-header">
+          <h2 id="details-title">Explainability and Flags</h2>
+        </div>
+        <div id="details-content" class="details-content">
+          Select a candidate from the rankings table to inspect ATS reasoning, GitHub reasons, and verification flags.
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
