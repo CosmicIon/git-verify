@@ -1,0 +1,23 @@
+{
+  "name": "git-verify-backend",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "test": "node --test",
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --write src/**/*.js"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.1"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mammoth": "^1.9.0",
+    "mongoose": "^8.16.5",
+    "multer": "^2.0.2",
+    "pdf-parse": "^1.1.1"
+  }
+}
