@@ -51,9 +51,9 @@ function isValidEntityId(value) {
   const normalized = String(value).trim();
   const asNumber = Number(normalized);
   const isPositiveInteger = Number.isInteger(asNumber) && asNumber > 0;
-  const isObjectId = /^[a-f\d]{24}$/i.test(normalized);
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(normalized);
 
-  return isPositiveInteger || isObjectId;
+  return isPositiveInteger || isUuid;
 }
 
 function assertOrThrow(condition, spec) {

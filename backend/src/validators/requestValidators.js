@@ -27,7 +27,7 @@ function validateUploadRequest(req, _res, next) {
     if (hasJobReference) {
       assertOrThrow(isValidEntityId(normalizedJobId), {
         code: "VALIDATION_ERROR",
-        message: "jobId must be a positive integer or a Mongo ObjectId",
+        message: "jobId must be a positive integer or a valid UUID",
         status: 400,
         details: { field: "jobId" },
       });
@@ -86,7 +86,7 @@ function validateScoreRequest(req, _res, next) {
 
     assertOrThrow(isValidEntityId(rawCandidateId), {
       code: "VALIDATION_ERROR",
-      message: "candidateId must be a positive integer or a Mongo ObjectId",
+      message: "candidateId must be a positive integer or a valid UUID",
       status: 400,
       details: { field: "candidateId" },
     });
